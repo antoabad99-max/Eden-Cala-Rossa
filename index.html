@@ -343,6 +343,110 @@ footer{
 /* ══ PAGES ══ */
 .page{display:none}
 .page.active{display:block}
+
+/* ══ PAGE CHATBOT PLEIN ÉCRAN ══ */
+.chat-page{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:linear-gradient(135deg,#0d2a1a 0%,#1d3a2a 40%,#0d2a3a 100%);
+  flex-direction:column;
+}
+.chat-page.open{display:flex}
+.chat-page-header{
+  padding:20px 32px;display:flex;align-items:center;gap:16px;
+  background:rgba(0,0,0,0.2);border-bottom:1px solid rgba(255,255,255,0.1);
+  flex-shrink:0;
+}
+.chat-page-back{
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+  color:var(--white);width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  font-size:18px;transition:all 0.2s;flex-shrink:0;
+}
+.chat-page-back:hover{background:rgba(255,255,255,0.2)}
+.chat-page-av{
+  width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--ocean),var(--turq));
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.chat-page-info h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--white)}
+.chat-page-info p{font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px}
+.chat-page-status{margin-left:auto;display:flex;align-items:center;gap:8px}
+.status-dot{width:8px;height:8px;background:#4ecdc4;border-radius:50%;animation:statusPulse 2s ease-in-out infinite}
+@keyframes statusPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.status-txt{font-size:12px;color:rgba(255,255,255,0.6)}
+
+.chat-page-msgs{
+  flex:1;overflow-y:auto;padding:32px;
+  display:flex;flex-direction:column;gap:20px;
+  max-width:860px;width:100%;margin:0 auto;
+}
+.chat-page-msgs::-webkit-scrollbar{width:4px}
+.chat-page-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px}
+
+.pmsg{display:flex;gap:14px;max-width:75%}
+.pmsg.user{align-self:flex-end;flex-direction:row-reverse}
+.pmsg-av{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;align-self:flex-end;
+  background:linear-gradient(135deg,var(--ocean),var(--turq));
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.pmsg-av.user-av{background:rgba(255,255,255,0.15);font-size:13px;font-weight:700;color:var(--white)}
+.pmsg-bubble{
+  padding:14px 18px;border-radius:20px;font-size:15px;line-height:1.65;
+  animation:msgIn 0.3s ease;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pmsg.bot .pmsg-bubble{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
+  color:var(--white);border-bottom-left-radius:4px;
+}
+.pmsg.user .pmsg-bubble{
+  background:var(--terra);color:var(--white);
+  border-bottom-right-radius:4px;
+}
+.pmsg-time{font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;padding:0 4px}
+
+.chat-page-suggestions{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:0 32px 16px;max-width:860px;width:100%;margin:0 auto;
+}
+.chat-page-chip{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.85);font-family:'Jost',sans-serif;
+  font-size:13px;padding:8px 16px;border-radius:30px;cursor:pointer;
+  transition:all 0.2s;white-space:nowrap;
+}
+.chat-page-chip:hover{background:var(--terra);border-color:var(--terra);color:var(--white)}
+
+.chat-page-input{
+  padding:20px 32px;background:rgba(0,0,0,0.2);
+  border-top:1px solid rgba(255,255,255,0.1);flex-shrink:0;
+}
+.chat-page-input-inner{
+  display:flex;gap:12px;align-items:center;
+  max-width:860px;margin:0 auto;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);
+  border-radius:50px;padding:8px 8px 8px 20px;
+  transition:border-color 0.2s;
+}
+.chat-page-input-inner:focus-within{border-color:var(--turq)}
+#pchat-in{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:'Jost',sans-serif;font-size:15px;color:var(--white);
+}
+#pchat-in::placeholder{color:rgba(255,255,255,0.35)}
+#pchat-send{
+  background:linear-gradient(135deg,var(--terra),var(--coral));
+  border:none;color:var(--white);width:42px;height:42px;border-radius:50%;
+  font-size:16px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 0.2s;
+}
+#pchat-send:hover{transform:scale(1.05)}
+#pchat-send:disabled{opacity:0.4;cursor:not-allowed}
+.chat-page-input-hint{text-align:center;font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;max-width:860px;margin:8px auto 0}
+
 </style>
 </head>
 <body>
@@ -359,6 +463,7 @@ footer{
     <a href="javascript:void(0)" onclick="showSection('avis')">Avis</a>
   </div>
   <div style="display:flex;gap:10px;align-items:center">
+    <a href="javascript:void(0)" onclick="showChatPage()" style="color:rgba(255,255,255,0.9);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.5px;transition:color 0.3s" id="navGuide">🌅 Guide IA</a>
     <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
     <a href="https://checkout.lodgify.com/fr/edencalarossa/620071/reservation?currency=EUR" target="_blank" class="nav-btn" id="navBookBtn">Réserver</a>
   </div>
@@ -630,12 +735,12 @@ footer{
 </footer>
 
 <!-- CHATBOT FAB -->
-<button class="chatbot-fab" onclick="toggleChat()" id="chatFab" title="Guide touristique IA">🌊</button>
+<button class="chatbot-fab" onclick="showChatPage()" id="chatFab" title="Guide touristique IA" style="font-size:0;padding:0"><svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" fill="#0a2a5c"/><path d="M1 24 A23 23 0 0 1 47 24 Z" fill="#1a3a70"/><path d="M3 18 A23 23 0 0 1 45 18 Z" fill="#c05020"/><path d="M7 12 A23 23 0 0 1 41 12 Z" fill="#e07030"/><circle cx="24" cy="14" r="9" fill="#f5c030"/><line x1="14" y1="26" x2="18" y2="26" stroke="#f5c030" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/><line x1="20" y1="29" x2="28" y2="29" stroke="#f5c030" stroke-width="2" opacity="0.7" stroke-linecap="round"/><line x1="30" y1="26" x2="34" y2="26" stroke="#f5c030" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/><path d="M5 23 Q10 19 16 23 Q22 27 28 23 Q34 19 40 23 Q44 26 47 23" fill="none" stroke="#4aa8d0" stroke-width="1.8" stroke-linecap="round"/><path d="M3 29 Q9 25 15 29 Q21 33 27 29 Q33 25 39 29 Q43 31 47 29" fill="none" stroke="#2a7aaa" stroke-width="2" stroke-linecap="round"/><path d="M5 36 Q10 30 16 36" fill="#1a3a20" opacity="0.8"/></svg></button>
 
 <!-- CHATBOT WINDOW -->
 <div class="chatbot-window" id="chatWindow">
   <div class="chat-head">
-    <div class="chat-av">🌊</div>
+    <div class="chat-av" style="background:none;font-size:0"><svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" fill="#0a2a5c"/><path d="M1 24 A23 23 0 0 1 47 24 Z" fill="#1a3a70"/><path d="M3 18 A23 23 0 0 1 45 18 Z" fill="#c05020"/><path d="M7 12 A23 23 0 0 1 41 12 Z" fill="#e07030"/><circle cx="24" cy="14" r="9" fill="#f5c030"/><line x1="14" y1="26" x2="18" y2="26" stroke="#f5c030" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/><line x1="20" y1="29" x2="28" y2="29" stroke="#f5c030" stroke-width="2" opacity="0.7" stroke-linecap="round"/><line x1="30" y1="26" x2="34" y2="26" stroke="#f5c030" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/><path d="M5 23 Q10 19 16 23 Q22 27 28 23 Q34 19 40 23 Q44 26 47 23" fill="none" stroke="#4aa8d0" stroke-width="1.8" stroke-linecap="round"/><path d="M3 29 Q9 25 15 29 Q21 33 27 29 Q33 25 39 29 Q43 31 47 29" fill="none" stroke="#2a7aaa" stroke-width="2" stroke-linecap="round"/><path d="M5 36 Q10 30 16 36" fill="#1a3a20" opacity="0.8"/></svg></div>
     <div class="chat-head-info">
       <h3 id="chatName">Corsica Guide</h3>
       <p id="chatSub">Votre guide touristique IA · 24h/24</p>
@@ -657,6 +762,47 @@ footer{
   <div class="chat-input-row">
     <input id="chat-in" type="text" placeholder="Posez votre question... / Ask your question..." onkeydown="if(event.key==='Enter')sendChatMsg()">
     <button id="chat-send" onclick="sendChatMsg()">➤</button>
+  </div>
+</div>
+
+
+<!-- PAGE CHATBOT PLEIN ÉCRAN -->
+<div class="chat-page" id="chatPage">
+  <div class="chat-page-header">
+    <button class="chat-page-back" onclick="hideChatPage()">←</button>
+    <div class="chat-page-av" style="background:none;font-size:0"><svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" fill="#0a2a5c"/><path d="M1 24 A23 23 0 0 1 47 24 Z" fill="#1a3a70"/><path d="M3 18 A23 23 0 0 1 45 18 Z" fill="#c05020"/><path d="M7 12 A23 23 0 0 1 41 12 Z" fill="#e07030"/><circle cx="24" cy="14" r="9" fill="#f5c030"/><line x1="14" y1="26" x2="18" y2="26" stroke="#f5c030" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/><line x1="20" y1="29" x2="28" y2="29" stroke="#f5c030" stroke-width="2" opacity="0.7" stroke-linecap="round"/><line x1="30" y1="26" x2="34" y2="26" stroke="#f5c030" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/><path d="M5 23 Q10 19 16 23 Q22 27 28 23 Q34 19 40 23 Q44 26 47 23" fill="none" stroke="#4aa8d0" stroke-width="1.8" stroke-linecap="round"/><path d="M3 29 Q9 25 15 29 Q21 33 27 29 Q33 25 39 29 Q43 31 47 29" fill="none" stroke="#2a7aaa" stroke-width="2" stroke-linecap="round"/><path d="M5 36 Q10 30 16 36" fill="#1a3a20" opacity="0.8"/></svg></div>
+    <div class="chat-page-info">
+      <h2>Corsica Guide</h2>
+      <p>Guide touristique IA · Eden Cala Rossa</p>
+    </div>
+    <div class="chat-page-status">
+      <div class="status-dot"></div>
+      <span class="status-txt">En ligne</span>
+    </div>
+  </div>
+  <div class="chat-page-msgs" id="pchatMsgs">
+    <div class="pmsg bot">
+      <div class="pmsg-av" style="background:none;font-size:0"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="13" fill="#0a2a5c"/><path d="M1 14 A13 13 0 0 1 27 14 Z" fill="#1a3a70"/><path d="M2 10 A13 13 0 0 1 26 10 Z" fill="#c05020"/><path d="M4 7 A13 13 0 0 1 24 7 Z" fill="#e07030"/><circle cx="14" cy="8" r="5" fill="#f5c030"/><line x1="7" y1="15" x2="10" y2="15" stroke="#f5c030" stroke-width="1" opacity="0.6" stroke-linecap="round"/><line x1="11" y1="17" x2="17" y2="17" stroke="#f5c030" stroke-width="1.2" opacity="0.7" stroke-linecap="round"/><line x1="18" y1="15" x2="21" y2="15" stroke="#f5c030" stroke-width="1" opacity="0.6" stroke-linecap="round"/><path d="M2 14 Q6 11 10 14 Q14 17 18 14 Q22 11 26 14" fill="none" stroke="#4aa8d0" stroke-width="1.2" stroke-linecap="round"/><path d="M1 18 Q5 15 9 18 Q13 21 17 18 Q21 15 25 18 Q27 19 27 18" fill="none" stroke="#2a7aaa" stroke-width="1.5" stroke-linecap="round"/><path d="M3 22 Q7 17 10 22" fill="#1a3a20" opacity="0.8"/></svg></div>
+      <div>
+        <div class="pmsg-bubble">Bonjour et bienvenue à Eden Cala Rossa ! 🌿<br><br>Je suis votre guide pour découvrir le paradis corse autour de Porto-Vecchio. Plages, restaurants, activités, balades... posez-moi toutes vos questions, je suis là pour rendre votre séjour inoubliable !<br><br><em style="opacity:0.7;font-size:13px">Hello and welcome! Feel free to ask me anything in English too 🏖️</em></div>
+        <div class="pmsg-time">Corsica Guide · maintenant</div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-page-suggestions" id="pchatSuggestions">
+    <span class="chat-page-chip" onclick="pSendChip('Quelles sont les plus belles plages près de Cala Rossa ?')">🏖️ Belles plages</span>
+    <span class="chat-page-chip" onclick="pSendChip('Que faire absolument à Porto-Vecchio ?')">🏙️ Porto-Vecchio</span>
+    <span class="chat-page-chip" onclick="pSendChip('Quel restaurant me conseilles-tu ?')">🍽️ Restaurants</span>
+    <span class="chat-page-chip" onclick="pSendChip('Quelles activités nautiques sont disponibles ?')">⛵ Nautisme</span>
+    <span class="chat-page-chip" onclick="pSendChip('Comment se rendre à Eden Cala Rossa depuis Figari ?')">✈️ Accès & Transferts</span>
+    <span class="chat-page-chip" onclick="pSendChip('Que visiter en dehors des plages ?')">🏔️ Culture & Nature</span>
+  </div>
+  <div class="chat-page-input">
+    <div class="chat-page-input-inner">
+      <input id="pchat-in" type="text" placeholder="Posez votre question... / Ask me anything..." onkeydown="if(event.key==='Enter')pSendMsg()">
+      <button id="pchat-send" onclick="pSendMsg()">➤</button>
+    </div>
+    <div class="chat-page-input-hint">Propulsé par Claude AI · Réponses en français et en anglais</div>
   </div>
 </div>
 
@@ -785,6 +931,81 @@ async function sendChatMsg(){
   }
   chatTyping=false;document.getElementById('chat-send').disabled=false;
 }
+
+// ══ PAGE CHATBOT ══
+var pchatHistory = [];
+var pchatTyping = false;
+
+function showChatPage(){
+  document.getElementById('chatPage').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function hideChatPage(){
+  document.getElementById('chatPage').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function pAddMsg(role, text){
+  var msgs = document.getElementById('pchatMsgs');
+  var div = document.createElement('div');
+  div.className = 'pmsg ' + (role === 'user' ? 'user' : 'bot');
+  var now = new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  if(role === 'user'){
+    div.innerHTML = '<div><div class="pmsg-bubble">' + text + '</div><div class="pmsg-time">Vous · ' + now + '</div></div><div class="pmsg-av user-av">Vous</div>';
+  } else {
+    div.innerHTML = '<div class="pmsg-av" style="background:none;font-size:0"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="13" fill="#0a2a5c"/><path d="M1 14 A13 13 0 0 1 27 14 Z" fill="#1a3a70"/><path d="M2 10 A13 13 0 0 1 26 10 Z" fill="#c05020"/><path d="M4 7 A13 13 0 0 1 24 7 Z" fill="#e07030"/><circle cx="14" cy="8" r="5" fill="#f5c030"/><line x1="7" y1="15" x2="10" y2="15" stroke="#f5c030" stroke-width="1" opacity="0.6" stroke-linecap="round"/><line x1="11" y1="17" x2="17" y2="17" stroke="#f5c030" stroke-width="1.2" opacity="0.7" stroke-linecap="round"/><line x1="18" y1="15" x2="21" y2="15" stroke="#f5c030" stroke-width="1" opacity="0.6" stroke-linecap="round"/><path d="M2 14 Q6 11 10 14 Q14 17 18 14 Q22 11 26 14" fill="none" stroke="#4aa8d0" stroke-width="1.2" stroke-linecap="round"/><path d="M1 18 Q5 15 9 18 Q13 21 17 18 Q21 15 25 18 Q27 19 27 18" fill="none" stroke="#2a7aaa" stroke-width="1.5" stroke-linecap="round"/><path d="M3 22 Q7 17 10 22" fill="#1a3a20" opacity="0.8"/></svg></div><div><div class="pmsg-bubble">' + text.replace(/\n/g,'<br>') + '</div><div class="pmsg-time">Corsica Guide · ' + now + '</div></div>';
+  }
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function pShowTyping(){
+  var msgs = document.getElementById('pchatMsgs');
+  var div = document.createElement('div');
+  div.className = 'pmsg bot'; div.id = 'ptypingDiv';
+  div.innerHTML = '<div class="pmsg-av" style="background:none;font-size:0"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="13" fill="#0a2a5c"/><path d="M1 14 A13 13 0 0 1 27 14 Z" fill="#1a3a70"/><path d="M2 10 A13 13 0 0 1 26 10 Z" fill="#c05020"/><path d="M4 7 A13 13 0 0 1 24 7 Z" fill="#e07030"/><circle cx="14" cy="8" r="5" fill="#f5c030"/><line x1="7" y1="15" x2="10" y2="15" stroke="#f5c030" stroke-width="1" opacity="0.6" stroke-linecap="round"/><line x1="11" y1="17" x2="17" y2="17" stroke="#f5c030" stroke-width="1.2" opacity="0.7" stroke-linecap="round"/><line x1="18" y1="15" x2="21" y2="15" stroke="#f5c030" stroke-width="1" opacity="0.6" stroke-linecap="round"/><path d="M2 14 Q6 11 10 14 Q14 17 18 14 Q22 11 26 14" fill="none" stroke="#4aa8d0" stroke-width="1.2" stroke-linecap="round"/><path d="M1 18 Q5 15 9 18 Q13 21 17 18 Q21 15 25 18 Q27 19 27 18" fill="none" stroke="#2a7aaa" stroke-width="1.5" stroke-linecap="round"/><path d="M3 22 Q7 17 10 22" fill="#1a3a20" opacity="0.8"/></svg></div><div><div class="pmsg-bubble"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div></div>';
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+}
+function pRemoveTyping(){ var t=document.getElementById('ptypingDiv'); if(t)t.remove(); }
+
+function pSendChip(txt){
+  document.getElementById('pchat-in').value = txt;
+  document.getElementById('pchatSuggestions').style.display = 'none';
+  pSendMsg();
+}
+
+async function pSendMsg(){
+  if(pchatTyping) return;
+  var input = document.getElementById('pchat-in');
+  var msg = input.value.trim(); if(!msg) return;
+  input.value = '';
+  document.getElementById('pchatSuggestions').style.display = 'none';
+  pAddMsg('user', msg);
+  pchatHistory.push({role:'user', content:msg});
+  pchatTyping = true; document.getElementById('pchat-send').disabled = true;
+  pShowTyping();
+  try{
+    var res = await fetch('/api/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 500,
+        system: "Tu es Corsica Guide, un guide touristique passionné et chaleureux pour la région de Porto-Vecchio en Corse du Sud. Tu représentes l'appartement Eden Cala Rossa situé à Lecci, à 800m de la plage de Cala Rossa. Parle comme un ami local qui connaît parfaitement la région, avec enthousiasme et authenticité. Tu connais : les plages (Palombaggia, Santa Giulia, Rondinara, Cala Rossa, Saint Cyprien, Benedettu, Pinarello), les restaurants locaux, les activités (nautisme, randonnée, VTT, plongée), la culture et gastronomie corse (charcuterie, fromages, vins corses, brocciu), les sites historiques (Bonifacio, citadelle de Porto-Vecchio, Aléria), les transports depuis l'aéroport de Figari. Réponds toujours en français ET en anglais dans chaque message — français d'abord sur 2-3 phrases naturelles, puis la même chose en anglais en italique. Sois concret, donne des noms de lieux précis, des conseils pratiques. Évite les listes, parle naturellement.",
+        messages: pchatHistory
+      })
+    });
+    pRemoveTyping();
+    var data = await res.json();
+    var reply = (data.content && data.content[0]) ? data.content[0].text : 'Désolé, une erreur est survenue. / Sorry, an error occurred.';
+    pchatHistory.push({role:'assistant', content:reply});
+    pAddMsg('bot', reply);
+  } catch(e){
+    pRemoveTyping();
+    pAddMsg('bot', 'Désolé, une erreur de connexion. / Sorry, connection error.');
+  }
+  pchatTyping = false; document.getElementById('pchat-send').disabled = false;
+}
+
 </script>
 </body>
 </html>
