@@ -3,1120 +3,788 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free — Espace Abonné</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Eden Cala Rossa — Corse du Sud</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --red:#e2001a;--red2:#c0001a;--green:#4caf50;
-  --black:#0d0d0d;--dark:#1a1a1a;--dark2:#222;--dark3:#2a2a2a;
-  --border:#333;--border2:#3a3a3a;--grey:#888;--lgrey:#f5f5f5;
-  --white:#fff;--text:#f0f0f0;--subtext:#999;
+  --sand:#f5e6c8;
+  --terra:#c4622d;
+  --terra2:#a0481c;
+  --coral:#e8856a;
+  --ocean:#2a7c9e;
+  --ocean2:#1d5f7a;
+  --turq:#4ecdc4;
+  --green:#3d7a5c;
+  --dark:#1a1208;
+  --white:#fff;
+  --cream:#fdf8f0;
+  --text:#2d1f0e;
+  --grey:#8a7a68;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--black);color:var(--text);min-height:100vh}
-.app-wrapper{max-width:440px;margin:0 auto;min-height:100vh;background:var(--black);position:relative}
-.top-bar{background:var(--dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-.top-bar-logo{font-family:'Pacifico',cursive;font-size:28px;color:var(--red);letter-spacing:-0.5px}
-.top-bar-link{font-size:13px;color:var(--grey);font-weight:500;cursor:pointer}
-.back-btn{font-size:20px;color:var(--text);cursor:pointer;padding:4px 8px 4px 0}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:var(--dark);border-top:1px solid var(--border);display:flex;padding:10px 0 20px;z-index:50;}
-.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:color 0.2s}
-.bnav-icon{font-size:22px}
-.bnav-label{font-size:10px;font-weight:500;color:var(--grey)}
-.bnav-item.active .bnav-label{color:var(--red)}
-.page{display:none;padding-bottom:90px}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 40px;display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.4s;
+}
+nav.scrolled{background:rgba(245,230,200,0.95);backdrop-filter:blur(10px);padding:14px 40px;box-shadow:0 2px 20px rgba(196,98,45,0.15)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);text-decoration:none;transition:color 0.3s}
+nav.scrolled .nav-logo{color:var(--terra)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,0.9);font-size:13px;font-weight:500;letter-spacing:0.5px;transition:color 0.3s}
+nav.scrolled .nav-links a{color:var(--text)}
+.nav-links a:hover{color:var(--coral)}
+.nav-btn{background:var(--terra);color:var(--white);border:none;padding:10px 22px;border-radius:30px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.nav-btn:hover{background:var(--terra2);transform:translateY(-1px)}
+.lang-toggle{background:transparent;border:1.5px solid rgba(255,255,255,0.6);color:var(--white);padding:7px 14px;border-radius:20px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.3s}
+nav.scrolled .lang-toggle{border-color:var(--terra);color:var(--terra)}
+.lang-toggle:hover{background:var(--terra);border-color:var(--terra);color:var(--white)}
+
+/* ══ HERO ══ */
+.hero{
+  height:100vh;position:relative;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#1a3a2a 0%,#2a5a4a 30%,#1d5f7a 60%,#0d3048 100%);
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(196,98,45,0.3) 50%, rgba(0,0,0,0.5) 100%);
+}
+/* Soleil animé */
+.hero-sun{
+  position:absolute;top:15%;right:15%;
+  width:120px;height:120px;
+  background:radial-gradient(circle,#ffd84d,#ff9a3c,rgba(255,120,0,0));
+  border-radius:50%;
+  animation:sunGlow 4s ease-in-out infinite;
+}
+@keyframes sunGlow{
+  0%,100%{transform:scale(1);opacity:0.9}
+  50%{transform:scale(1.1);opacity:1}
+}
+/* Vagues */
+.hero-waves{
+  position:absolute;bottom:0;left:0;right:0;height:200px;
+  overflow:hidden;
+}
+.wave{
+  position:absolute;bottom:0;left:-50%;
+  width:200%;height:100%;
+  background:rgba(78,205,196,0.2);
+  border-radius:50% 50% 0 0;
+  animation:waveAnim 6s ease-in-out infinite;
+}
+.wave:nth-child(2){
+  background:rgba(42,124,158,0.15);
+  animation:waveAnim 8s ease-in-out infinite reverse;
+  bottom:-20px;
+}
+.wave:nth-child(3){
+  background:rgba(245,230,200,0.1);
+  animation:waveAnim 10s ease-in-out infinite;
+  bottom:-40px;
+}
+@keyframes waveAnim{
+  0%,100%{transform:translateX(0) scaleY(1)}
+  50%{transform:translateX(5%) scaleY(0.9)}
+}
+.hero-content{position:relative;text-align:center;color:var(--white);padding:0 20px}
+.hero-eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:4px;text-transform:uppercase;
+  color:var(--coral);margin-bottom:20px;
+  animation:fadeUp 0.8s ease both;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,8vw,90px);
+  line-height:1.05;
+  margin-bottom:20px;
+  animation:fadeUp 0.8s 0.2s ease both;
+}
+.hero h1 em{color:var(--coral);font-style:italic}
+.hero-sub{
+  font-size:18px;font-weight:300;color:rgba(255,255,255,0.85);
+  max-width:560px;margin:0 auto 40px;line-height:1.7;
+  animation:fadeUp 0.8s 0.4s ease both;
+}
+.hero-actions{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 0.8s 0.6s ease both;
+}
+.btn-primary{
+  background:var(--terra);color:var(--white);border:none;
+  padding:15px 34px;border-radius:40px;font-family:'Jost',sans-serif;
+  font-size:15px;font-weight:600;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;
+}
+.btn-primary:hover{background:var(--terra2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,98,45,0.4)}
+.btn-ghost{
+  background:transparent;color:var(--white);
+  border:2px solid rgba(255,255,255,0.6);
+  padding:13px 32px;border-radius:40px;font-family:'Jost',sans-serif;
+  font-size:15px;font-weight:500;cursor:pointer;transition:all 0.3s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,0.15);border-color:var(--white)}
+.hero-scroll{
+  position:absolute;bottom:100px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fadeUp 0.8s 0.8s ease both;
+}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,transparent,var(--coral));animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.5;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ BOOKING BAR ══ */
+.booking-bar{
+  background:var(--white);
+  box-shadow:0 -4px 40px rgba(196,98,45,0.15);
+  padding:28px 40px;
+  display:flex;gap:16px;align-items:flex-end;justify-content:center;flex-wrap:wrap;
+}
+.book-field{display:flex;flex-direction:column;gap:6px}
+.book-field label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--grey)}
+.book-field input,.book-field select{
+  border:1.5px solid #e8ddd0;border-radius:10px;padding:10px 14px;
+  font-family:'Jost',sans-serif;font-size:14px;color:var(--text);
+  outline:none;transition:border-color 0.2s;background:var(--cream);
+  min-width:140px;
+}
+.book-field input:focus,.book-field select:focus{border-color:var(--terra)}
+.btn-book{
+  background:var(--terra);color:var(--white);border:none;
+  padding:12px 28px;border-radius:10px;font-family:'Jost',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;
+}
+.btn-book:hover{background:var(--terra2)}
+
+/* ══ SECTIONS COMMUNES ══ */
+section{padding:80px 40px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);line-height:1.1;color:var(--dark);margin-bottom:16px}
+.section-title em{color:var(--terra);font-style:italic}
+.section-sub{font-size:16px;color:var(--grey);line-height:1.8;max-width:600px}
+
+/* ══ ABOUT ══ */
+.about{background:var(--cream)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto}
+.about-text .section-sub{margin-bottom:28px}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.stat-box{text-align:center;padding:20px;background:var(--white);border-radius:16px;box-shadow:0 4px 20px rgba(196,98,45,0.08)}
+.stat-n{font-family:'Playfair Display',serif;font-size:32px;color:var(--terra);font-weight:700}
+.stat-l{font-size:12px;color:var(--grey);margin-top:4px}
+.about-img{border-radius:24px;overflow:hidden;position:relative}
+.about-img img{width:100%;height:500px;object-fit:cover;display:block}
+.about-img-badge{
+  position:absolute;bottom:20px;right:20px;
+  background:var(--terra);color:var(--white);
+  padding:12px 18px;border-radius:12px;
+  font-size:13px;font-weight:600;text-align:center;
+}
+
+/* ══ FEATURES ══ */
+.features{background:var(--white)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:48px auto 0}
+.feature-card{
+  background:var(--cream);border-radius:20px;padding:32px;
+  border:1.5px solid #e8ddd0;transition:all 0.3s;
+}
+.feature-card:hover{border-color:var(--coral);transform:translateY(-4px);box-shadow:0 12px 32px rgba(196,98,45,0.1)}
+.feature-icon{font-size:32px;margin-bottom:16px}
+.feature-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:8px;color:var(--dark)}
+.feature-desc{font-size:14px;color:var(--grey);line-height:1.7}
+
+/* ══ GALLERY ══ */
+.gallery{background:var(--sand);padding:80px 0}
+.gallery-header{text-align:center;padding:0 40px;margin-bottom:40px}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(2,220px);
+  gap:6px;
+  padding:0 40px;
+}
+.gallery-item{overflow:hidden;border-radius:4px}
+.gallery-item:first-child{grid-column:span 2;grid-row:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+.gallery-item:hover img{transform:scale(1.05)}
+
+/* ══ LOCALISATION ══ */
+.localisation{background:var(--cream)}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:1100px;margin:48px auto 0}
+.loc-map{
+  background:linear-gradient(135deg,var(--ocean),var(--green));
+  border-radius:24px;height:400px;display:flex;align-items:center;justify-content:center;
+  color:var(--white);font-size:18px;text-align:center;font-family:'Playfair Display',serif;
+  position:relative;overflow:hidden;
+}
+.loc-map::before{
+  content:'🗺️';font-size:80px;position:absolute;opacity:0.2;
+}
+.loc-map-label{position:relative;z-index:1}
+.loc-list{display:flex;flex-direction:column;gap:14px}
+.loc-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;background:var(--white);border-radius:14px;
+  border:1.5px solid #e8ddd0;
+}
+.loc-icon{font-size:22px;flex-shrink:0}
+.loc-name{font-weight:600;font-size:14px;color:var(--dark)}
+.loc-dist{font-size:13px;color:var(--terra);font-weight:600}
+
+/* ══ AVIS ══ */
+.avis{background:linear-gradient(135deg,var(--terra),#8b3a1a)}
+.avis .section-title,.avis .section-label{color:var(--white)}
+.avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:40px auto 0}
+.avis-card{background:rgba(255,255,255,0.1);border-radius:18px;padding:28px;border:1px solid rgba(255,255,255,0.2)}
+.avis-stars{color:#ffd84d;font-size:18px;margin-bottom:12px}
+.avis-text{font-size:14px;color:rgba(255,255,255,0.9);line-height:1.7;font-style:italic;margin-bottom:16px}
+.avis-author{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)}
+
+/* ══ CHATBOT ══ */
+.chatbot-fab{
+  position:fixed;bottom:30px;right:30px;z-index:200;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ocean),var(--turq));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  box-shadow:0 4px 20px rgba(42,124,158,0.4);
+  transition:all 0.3s;
+  animation:fabPulse 3s ease-in-out infinite;
+}
+@keyframes fabPulse{0%,100%{box-shadow:0 4px 20px rgba(42,124,158,0.4)}50%{box-shadow:0 4px 30px rgba(42,124,158,0.7)}}
+.chatbot-fab:hover{transform:scale(1.1)}
+.chatbot-window{
+  position:fixed;bottom:100px;right:30px;z-index:200;
+  width:360px;background:var(--white);border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.2);
+  overflow:hidden;display:none;flex-direction:column;
+  max-height:520px;
+}
+.chatbot-window.open{display:flex}
+.chat-head{
+  background:linear-gradient(135deg,var(--ocean),var(--turq));
+  padding:16px 20px;display:flex;align-items:center;gap:12px;
+}
+.chat-av{
+  width:40px;height:40px;background:rgba(255,255,255,0.2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.chat-head-info h3{font-size:15px;font-weight:700;color:var(--white)}
+.chat-head-info p{font-size:11px;color:rgba(255,255,255,0.8)}
+.chat-close{margin-left:auto;background:transparent;border:none;color:rgba(255,255,255,0.8);font-size:20px;cursor:pointer;padding:4px}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#f8f4ef}
+.msg{max-width:85%}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.msg-bubble{padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.55}
+.msg.bot .msg-bubble{background:var(--white);border:1px solid #e8ddd0;color:var(--text);border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:var(--ocean);color:var(--white);border-bottom-right-radius:4px}
+.msg-lang{font-size:10px;color:var(--grey);margin-top:4px;padding-left:2px}
+.chat-chips-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px;background:#f8f4ef;border-top:1px solid #e8ddd0}
+.chat-chip{background:var(--white);border:1.5px solid var(--terra);color:var(--terra);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.2s;white-space:nowrap}
+.chat-chip:hover{background:var(--terra);color:var(--white)}
+.chat-input-row{display:flex;gap:8px;padding:12px 14px;border-top:1px solid #e8ddd0;background:var(--white)}
+#chat-in{
+  flex:1;border:1.5px solid #e8ddd0;border-radius:20px;
+  padding:9px 14px;font-family:'Jost',sans-serif;font-size:13px;
+  outline:none;transition:border-color 0.2s;
+}
+#chat-in:focus{border-color:var(--ocean)}
+#chat-send{
+  background:var(--ocean);color:var(--white);border:none;
+  width:36px;height:36px;border-radius:50%;font-size:14px;cursor:pointer;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;
+}
+#chat-send:hover{background:var(--ocean2)}
+#chat-send:disabled{opacity:0.5;cursor:not-allowed}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:4px 0}
+.typing-dot{width:6px;height:6px;background:var(--grey);border-radius:50%;animation:tdot 1s infinite}
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes tdot{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.4);opacity:1}}
+
+/* ══ FOOTER ══ */
+footer{
+  background:var(--dark);color:rgba(255,255,255,0.7);
+  padding:60px 40px 30px;
+}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:24px;color:var(--white);margin-bottom:12px}
+.footer-desc{font-size:13px;line-height:1.8;margin-bottom:16px}
+.footer-contact{font-size:13px;line-height:2}
+.footer-contact a{color:var(--coral);text-decoration:none}
+.footer-col h4{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:8px;transition:color 0.2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  section{padding:60px 20px}
+  .about-grid,.loc-grid{grid-template-columns:1fr}
+  .features-grid,.avis-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item:first-child{grid-column:span 2;grid-row:span 1}
+  .footer-grid{grid-template-columns:1fr}
+  .chatbot-window{width:calc(100vw - 40px);right:20px}
+  .booking-bar{padding:20px}
+}
+
+/* ══ PAGES ══ */
+.page{display:none}
 .page.active{display:block}
-
-/* ACCUEIL */
-.home-header{background:var(--dark);padding:24px 20px 20px;border-bottom:1px solid var(--border);}
-.home-greeting{font-size:26px;font-weight:700;color:var(--white);margin-bottom:2px}
-.home-num{font-size:14px;color:var(--grey)}
-.home-box-btn{display:flex;align-items:center;justify-content:space-between;background:var(--dark3);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;margin-top:14px;cursor:pointer;transition:border-color 0.2s;}
-.home-box-btn:hover{border-color:var(--red)}
-.home-box-label{font-size:14px;font-weight:600;color:var(--text)}
-.home-box-sub{font-size:12px;color:var(--grey);margin-top:2px}
-.home-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px}
-.home-card{background:var(--dark);border:1px solid var(--border);border-radius:14px;padding:18px 16px;cursor:pointer;transition:border-color 0.2s;}
-.home-card:hover{border-color:var(--red)}
-.home-card-title{font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
-.home-card-sub{font-size:12px;color:var(--grey);margin-top:6px}
-.home-card-val{font-size:20px;font-weight:700;color:var(--red);margin-top:8px}
-.mini-bar{height:5px;background:var(--dark3);border-radius:3px;margin-top:10px;overflow:hidden}
-.mini-bar-fill{height:100%;background:var(--green);border-radius:3px}
-.home-promo{margin:0 20px 16px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#1a0005,#300010);border:1px solid rgba(226,0,26,0.3);padding:20px;}
-.promo-badge{display:inline-block;background:var(--red);color:var(--white);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:10px}
-.promo-title{font-size:18px;font-weight:700;color:var(--white)}
-.promo-price{font-size:32px;font-weight:800;color:var(--red);margin-top:6px}
-.promo-price sup{font-size:16px;vertical-align:super}
-.promo-price span{font-size:14px;font-weight:400;color:var(--grey)}
-.promo-desc{font-size:12px;color:var(--grey);margin-top:6px}
-.promo-btn{display:inline-block;margin-top:14px;background:var(--red);color:var(--white);font-size:13px;font-weight:700;padding:9px 20px;border-radius:8px;border:none;cursor:pointer;font-family:'Inter',sans-serif;}
-
-/* CONSO */
-.page-header{padding:16px 20px 0;display:flex;align-items:center;gap:8px}
-.page-title{font-size:18px;font-weight:700;color:var(--white)}
-.conso-period{padding:0 20px;margin-top:12px;margin-bottom:16px}
-.conso-period p{font-size:13px;color:var(--grey);line-height:1.5}
-.conso-tabs{display:flex;margin:0 20px 20px;background:var(--dark3);border-radius:10px;padding:4px;gap:4px}
-.conso-tab{flex:1;padding:9px;text-align:center;font-size:14px;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s;color:var(--grey)}
-.conso-tab.active{background:var(--white);color:var(--black);font-weight:600}
-.conso-block{margin:0 20px 14px;background:var(--dark);border:1px solid var(--border);border-radius:14px;padding:20px;}
-.conso-block-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.conso-icon{font-size:20px;color:var(--red)}
-.conso-block-title{font-size:17px;font-weight:700;color:var(--white)}
-.conso-block-sub{font-size:13px;color:var(--grey);margin-bottom:4px;padding-left:30px}
-.conso-detail{font-size:12px;color:var(--grey);padding-left:30px;margin-bottom:2px}
-.conso-val{font-size:13px;font-weight:600;color:var(--text);text-align:right;margin-bottom:8px}
-.conso-bar{height:7px;background:var(--dark3);border-radius:4px;overflow:hidden;margin-top:10px}
-.conso-bar-fill{height:100%;background:var(--green);border-radius:4px;transition:width 1s ease}
-.conso-unlimited{font-size:13px;font-weight:600;color:var(--text);text-align:right;margin-top:6px}
-
-/* FACTURES */
-.factures-page{padding:0 20px}
-.fact-recap{background:var(--dark);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color 0.2s;}
-.fact-recap:hover{border-color:var(--red)}
-.fact-recap-label{font-size:14px;font-weight:600;color:var(--text)}
-.fact-arr{font-size:18px;color:var(--grey)}
-.fact-hist-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:4px}
-.fact-hist-num{font-size:13px;color:var(--grey);margin-bottom:4px}
-.fact-hist-note{font-size:12px;color:var(--grey);margin-bottom:16px;line-height:1.5}
-.fact-last-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.fact-last-icon{width:32px;height:32px;background:rgba(226,0,26,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.fact-last-label{font-size:14px;font-weight:700;color:var(--text)}
-.fact-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);}
-.fact-row:last-child{border-bottom:none}
-.fact-row-date{font-size:14px;font-weight:500;color:var(--text)}
-.fact-row-amount{font-size:14px;font-weight:600;color:var(--text)}
-.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px}
-.badge-paid{background:rgba(76,175,80,0.15);color:var(--green)}
-.badge-refund{background:rgba(76,175,80,0.15);color:var(--green)}
-.badge-due{background:rgba(226,0,26,0.15);color:var(--red)}
-.badge-cancel{background:rgba(150,150,150,0.15);color:var(--grey)}
-
-/* MON COMPTE */
-.account-page{padding:0 20px}
-.account-header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px}
-.account-name{font-size:22px;font-weight:700;color:var(--white)}
-.account-num{font-size:14px;color:var(--grey);margin-top:4px}
-.account-forfait{background:linear-gradient(135deg,#1a0005,#280010);border:1px solid rgba(226,0,26,0.3);border-radius:14px;padding:20px;margin-bottom:16px;}
-.af-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--grey);text-transform:uppercase;margin-bottom:6px}
-.af-name{font-size:20px;font-weight:800;color:var(--white)}
-.af-detail{font-size:13px;color:var(--grey);margin-top:4px}
-.af-price{font-size:28px;font-weight:800;color:var(--red);margin-top:10px}
-.af-price span{font-size:14px;font-weight:400;color:var(--grey)}
-.btn-change{display:inline-block;margin-top:14px;background:transparent;color:var(--red);font-size:13px;font-weight:700;padding:8px 18px;border-radius:8px;border:1.5px solid var(--red);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
-.btn-change:hover{background:var(--red);color:var(--white)}
-.account-menu{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.account-menu-item{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.2s;}
-.account-menu-item:last-child{border-bottom:none}
-.account-menu-item:hover{background:var(--dark3)}
-.ami-left{display:flex;align-items:center;gap:12px}
-.ami-icon{font-size:18px;width:24px;text-align:center}
-.ami-label{font-size:14px;font-weight:500;color:var(--text)}
-.ami-arr{font-size:18px;color:var(--grey)}
-.logout-row{margin-top:16px;padding-bottom:8px}
-.btn-logout{width:100%;background:transparent;border:1.5px solid var(--border);color:var(--grey);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:13px;border-radius:12px;cursor:pointer;transition:all 0.2s;}
-.btn-logout:hover{border-color:var(--red);color:var(--red)}
-
-/* REGLAGES */
-.settings-page{padding:0 20px}
-.settings-section{margin:16px 0}
-.settings-section-title{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--grey);text-transform:uppercase;margin-bottom:10px;padding:0 4px}
-.settings-group{border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.settings-item{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.2s;}
-.settings-item:last-child{border-bottom:none}
-.settings-item:hover{background:var(--dark3)}
-.si-label{font-size:14px;font-weight:500;color:var(--text)}
-.si-sub{font-size:12px;color:var(--grey);margin-top:2px}
-.si-arr{font-size:16px;color:var(--grey)}
-.si-val{font-size:13px;color:var(--grey);margin-right:8px}
-.toggle{width:44px;height:26px;background:var(--dark3);border-radius:13px;position:relative;cursor:pointer;transition:background 0.3s;border:1px solid var(--border2);flex-shrink:0}
-.toggle.on{background:var(--red);border-color:var(--red)}
-.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--white);border-radius:50%;transition:left 0.3s}
-.toggle.on::after{left:21px}
-
-/* CHATBOT */
-.chatbot-wrap{padding:0}
-.chat-header{background:var(--dark);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;}
-.chat-av{width:38px;height:38px;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
-.chat-info h3{font-size:15px;font-weight:700;color:var(--white)}
-.chat-info p{font-size:11px;color:var(--grey)}
-.rb-wrap{display:flex;align-items:center;justify-content:center;position:relative}
-.rb-wrap svg{animation:rbIdle 3s ease-in-out infinite;transform-origin:center center}
-.rb-wrap.thinking svg,.rb-wrap.spinning svg{animation:rbSpin 0.9s linear infinite;transform-origin:center center}
-@keyframes rbIdle{
-  0%,100%{transform:rotateY(0deg) scale(1);filter:drop-shadow(0 0 4px #e2001a)}
-  25%{transform:rotateY(20deg) scale(1.05);filter:drop-shadow(0 0 8px #ff4466)}
-  50%{transform:rotateY(0deg) scale(1);filter:drop-shadow(0 0 4px #e2001a)}
-  75%{transform:rotateY(-20deg) scale(1.05);filter:drop-shadow(0 0 8px #ff4466)}
-}
-@keyframes rbSpin{
-  0%{transform:rotate(0deg);filter:drop-shadow(0 0 6px #e2001a)}
-  100%{transform:rotate(360deg);filter:drop-shadow(0 0 10px #ff4466)}
-}
-.chat-voice-btn{margin-left:auto;background:transparent;border:1px solid var(--border2);color:var(--grey);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;display:flex;align-items:center;gap:5px}
-.chat-voice-btn.on{border-color:var(--red);color:var(--red)}
-.voice-dot{width:7px;height:7px;background:var(--red);border-radius:50%;display:none}
-.chat-voice-btn.on .voice-dot{display:block;animation:vdot 1s infinite}
-@keyframes vdot{0%,100%{opacity:1}50%{opacity:0.2}}
-.chat-messages{height:calc(100vh - 260px);min-height:300px;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;background:var(--black);}
-.c-msg{display:flex;gap:10px;max-width:92%}
-.c-msg.user{align-self:flex-end;flex-direction:row-reverse}
-.c-bubble{padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.55}
-.c-msg.coral .c-bubble{background:var(--dark);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px}
-.c-msg.user .c-bubble{background:var(--red);color:var(--white);border-bottom-right-radius:4px}
-.c-av-sm{width:28px;height:28px;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:flex-end}
-.c-logo-wrap{display:flex;justify-content:flex-start;margin-top:5px;padding-left:2px;min-height:18px}
-.c-logo-static{font-family:'Pacifico',cursive;font-size:11px;color:var(--red);opacity:0.5}
-.c-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:dp 1s infinite}
-.c-dot:nth-child(2){animation-delay:0.2s}
-.c-dot:nth-child(3){animation-delay:0.4s}
-@keyframes dp{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.5);opacity:1}}
-.chat-chips{display:flex;flex-wrap:wrap;gap:8px;padding:10px 20px;border-top:1px solid var(--border);background:var(--dark)}
-.chip{background:var(--dark3);border:1px solid var(--border2);color:var(--text);font-size:12px;padding:6px 12px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;white-space:nowrap}
-.chip:hover{border-color:var(--red);color:var(--red)}
-.chat-input-row{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--border);background:var(--dark)}
-#chat-input{flex:1;background:var(--dark3);border:1.5px solid var(--border2);border-radius:22px;padding:10px 16px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;color:var(--text)}
-#chat-input:focus{border-color:var(--red)}
-#chat-input::placeholder{color:var(--grey)}
-#send-btn{background:var(--red);color:var(--white);border:none;width:40px;height:40px;border-radius:50%;font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-#send-btn:disabled{opacity:0.5;cursor:not-allowed}
-
-/* LOGIN */
-.login-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;background:var(--black);}
-.login-logo{font-family:'Pacifico',cursive;font-size:52px;color:var(--red);margin-bottom:10px}
-.login-tagline{font-size:14px;color:var(--grey);margin-bottom:40px;text-align:center}
-.login-choice{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px}
-.login-option{background:var(--dark);border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color 0.2s;}
-.login-option:hover{border-color:var(--red)}
-.lo-left{display:flex;align-items:center;gap:12px}
-.lo-icon{width:36px;height:36px;background:rgba(226,0,26,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.lo-label{font-size:15px;font-weight:600;color:var(--text)}
-.lo-sub{font-size:12px;color:var(--grey);margin-top:2px}
-.lo-arr{font-size:20px;color:var(--grey)}
-.login-form{display:none;min-height:100vh;padding:40px 24px;background:var(--black);flex-direction:column}
-.login-form.visible{display:flex}
-.lf-back{font-size:22px;cursor:pointer;color:var(--text);margin-bottom:28px;display:inline-block}
-.lf-title{font-family:'Pacifico',cursive;font-size:36px;color:var(--red);margin-bottom:6px}
-.lf-sub{font-size:14px;color:var(--grey);margin-bottom:32px}
-.lf-field{background:var(--dark);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;font-size:15px;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color 0.2s;margin-bottom:14px;width:100%;}
-.lf-field:focus{border-color:var(--red)}
-.lf-field::placeholder{color:var(--grey)}
-.btn-connect{width:100%;background:var(--red);color:var(--white);border:none;padding:15px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;}
-.lf-forgot{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--grey)}
-.lf-forgot a{color:var(--red);text-decoration:none;font-weight:600}
-
-/* MICRO */
-#mic-btn{background:var(--dark3);border:1.5px solid var(--border2);color:var(--grey);width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
-#mic-btn.rec{background:var(--red);border-color:var(--red);color:var(--white);animation:micPulse 0.8s ease-in-out infinite}
-@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(226,0,26,0.4)}50%{box-shadow:0 0 0 8px rgba(226,0,26,0)}}
-
-/* FICHE DOSSIER */
-.fiche-wrap{margin:0 20px 14px;border:1.5px solid var(--red);border-radius:14px;overflow:hidden;background:var(--dark)}
-.fiche-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:#1f0005}
-.fiche-title{font-size:13px;font-weight:700;color:var(--red);letter-spacing:0.5px}
-.fiche-btns{display:flex;gap:6px}
-.fiche-btn{background:transparent;border:1px solid var(--border2);color:var(--grey);font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
-.fiche-btn:hover{border-color:var(--red);color:var(--red)}
-.fiche-body{padding:14px 16px;font-size:13px;color:var(--text);line-height:1.7;white-space:pre-wrap;max-height:200px;overflow-y:auto}
-.fiche-body{display:block}.fiche-body.collapsed{display:none!important}
-#gen-fiche-btn{width:calc(100% - 40px);margin:0 20px 12px;background:transparent;border:1.5px dashed var(--border2);color:var(--grey);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:10px;border-radius:10px;cursor:pointer;transition:all 0.2s}
-#gen-fiche-btn:hover{border-color:var(--red);color:var(--red)}
-
-/* MODAL PLEIN ECRAN */
-.fiche-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:200;align-items:center;justify-content:center;padding:20px}
-.fiche-modal.open{display:flex}
-.fiche-modal-box{background:var(--dark);border:1.5px solid var(--red);border-radius:16px;width:100%;max-width:500px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden}
-.fiche-modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);background:#1f0005;flex-shrink:0}
-.fiche-modal-title{font-size:14px;font-weight:700;color:var(--red)}
-.fiche-modal-btns{display:flex;gap:8px}
-.fiche-modal-body{padding:18px;font-size:14px;color:var(--text);line-height:1.7;white-space:pre-wrap;overflow-y:auto;flex:1}
-
-/* NOTATION */
-.rating-wrap{margin:0 20px 14px;border:1.5px solid rgba(255,215,0,0.3);border-radius:14px;background:var(--dark);padding:18px;display:none}
-.rating-wrap.show{display:block}
-.rating-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;text-align:center}
-.rating-stars{display:flex;justify-content:center;gap:10px;margin-bottom:14px}
-.star{font-size:32px;cursor:pointer;transition:transform 0.15s;filter:grayscale(1);opacity:0.4}
-.star.active{filter:none;opacity:1;transform:scale(1.15)}
-.rating-msg{font-size:13px;color:var(--grey);text-align:center;min-height:18px;margin-bottom:12px}
-.rating-send{width:100%;background:#FFD700;color:#000;border:none;padding:10px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:none}
-.rating-send.show{display:block}
-.rating-done{font-size:13px;color:#FFD700;text-align:center;display:none;font-weight:600}
-.rating-done.show{display:block}
-
-
-/* ── MANAGER ── */
-.mgr-login-wrap{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:20px}
-.mgr-login-box{background:var(--dark);border:1.5px solid var(--border);border-radius:16px;padding:36px 28px;width:100%;max-width:360px;text-align:center}
-.mgr-login-icon{font-size:36px;margin-bottom:12px}
-.mgr-login-title{font-family:'Pacifico',cursive;font-size:22px;color:var(--red);margin-bottom:6px}
-.mgr-login-sub{font-size:13px;color:var(--grey);margin-bottom:28px}
-.mgr-hint{font-size:12px;color:var(--grey);margin-top:14px}
-.mgr-hint span{color:var(--red);font-weight:600}
-.mgr-dash{padding:20px;display:none}
-.mgr-dash.show{display:block}
-.mgr-dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.mgr-dash-title{font-size:18px;font-weight:700;color:var(--white)}
-.mgr-dash-title span{color:var(--red)}
-.mgr-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.mgr-stat{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
-.mgr-stat-n{font-family:'Pacifico',cursive;font-size:26px;color:var(--red)}
-.mgr-stat-l{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--grey);text-transform:uppercase;margin-top:4px}
-.mgr-section{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px}
-.mgr-section-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.mgr-conv-item{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;cursor:pointer;transition:border-color 0.2s}
-.mgr-conv-item:hover{border-color:var(--red)}
-.mgr-conv-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.mgr-conv-id{font-size:12px;font-weight:700;color:var(--red)}
-.mgr-conv-time{font-size:11px;color:var(--grey)}
-.mgr-conv-preview{font-size:12px;color:var(--grey);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mgr-conv-rating{font-size:12px;margin-top:4px}
-.mgr-empty{font-size:13px;color:var(--grey);text-align:center;padding:20px 0;line-height:1.6}
-.mgr-fiche-wrap{border:1.5px solid rgba(226,0,26,0.3);border-radius:10px;margin-top:12px;overflow:hidden;display:none}
-.mgr-fiche-wrap.show{display:block}
-.mgr-fiche-header{background:#1f0005;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-.mgr-fiche-title{font-size:12px;font-weight:700;color:var(--red)}
-.mgr-fiche-body{padding:14px 16px;font-size:13px;color:var(--text);line-height:1.8;white-space:pre-wrap;max-height:400px;overflow-y:auto}
-.mgr-fiche-btns{display:flex;gap:6px}
-.mgr-btn{background:transparent;border:1px solid var(--border2);color:var(--grey);font-size:11px;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
-.mgr-btn:hover{border-color:var(--red);color:var(--red)}
-.mgr-gen-btn{width:100%;background:var(--red);color:var(--white);border:none;padding:10px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:10px;transition:background 0.2s}
-.mgr-gen-btn:hover{background:var(--red2)}
-.mgr-gen-btn:disabled{opacity:0.5;cursor:not-allowed}
 </style>
 </head>
 <body>
-<div class="app-wrapper" id="appWrapper">
 
-<!-- LOGIN SCREEN -->
-<div id="loginScreen" class="login-screen">
-  <div class="login-logo">free</div>
-  <div class="login-tagline">Bienvenue · Connectez-vous à votre Espace Abonné</div>
-  <div class="login-choice">
-    <div class="login-option" onclick="showLoginForm()">
-      <div class="lo-left">
-        <div class="lo-icon">📱</div>
-        <div>
-          <div class="lo-label">Espace Abonné <span style="color:var(--red)">Mobile</span></div>
-          <div class="lo-sub">Forfaits Free Mobile</div>
-        </div>
-      </div>
-      <div class="lo-arr">›</div>
-    </div>
-    <div class="login-option" onclick="showLoginForm()">
-      <div class="lo-left">
-        <div class="lo-icon">📡</div>
-        <div>
-          <div class="lo-label">Espace Abonné <span style="color:var(--red)">Freebox</span></div>
-          <div class="lo-sub">Box Internet &amp; TV</div>
-        </div>
-      </div>
-      <div class="lo-arr">›</div>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="javascript:void(0)" class="nav-logo" onclick="showPage('home')">Eden Cala Rossa</a>
+  <div class="nav-links">
+    <a href="javascript:void(0)" onclick="showPage('home')">Accueil</a>
+    <a href="javascript:void(0)" onclick="showSection('decouvrez')">Découvrir</a>
+    <a href="javascript:void(0)" onclick="showSection('about')">L'appartement</a>
+    <a href="javascript:void(0)" onclick="showSection('gallery')">Galerie</a>
+    <a href="javascript:void(0)" onclick="showSection('localisation')">Localisation</a>
+    <a href="javascript:void(0)" onclick="showSection('avis')">Avis</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
+    <a href="https://checkout.lodgify.com/fr/edencalarossa/620071/reservation?currency=EUR" target="_blank" class="nav-btn" id="navBookBtn">Réserver</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-sun"></div>
+  <div class="hero-waves">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="heroEyebrow">✦ Corse du Sud · Porto-Vecchio ✦</div>
+    <h1 id="heroTitle">Bienvenue au<br><em>Paradis Corse</em></h1>
+    <p class="hero-sub" id="heroSub">Un appartement d'exception à Cala Rossa, entre plages turquoise, maquis parfumé et art de vivre méditerranéen.</p>
+    <div class="hero-actions">
+      <a href="https://checkout.lodgify.com/fr/edencalarossa/620071/reservation?currency=EUR" target="_blank" class="btn-primary" id="heroBook">Réserver maintenant</a>
+      <button class="btn-ghost" onclick="showSection('about')" id="heroDiscover">Découvrir</button>
     </div>
   </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar">
+  <div class="book-field">
+    <label id="labelArrivee">Arrivée</label>
+    <input type="date" id="dateArrivee">
+  </div>
+  <div class="book-field">
+    <label id="labelDepart">Départ</label>
+    <input type="date" id="dateDepart">
+  </div>
+  <div class="book-field">
+    <label id="labelPersonnes">Personnes</label>
+    <select id="personnes">
+      <option>1</option><option selected>2</option><option>3</option>
+      <option>4</option><option>5</option><option>6</option>
+    </select>
+  </div>
+  <button class="btn-book" onclick="window.open('https://checkout.lodgify.com/fr/edencalarossa/620071/reservation?currency=EUR','_blank')" id="bookBtn">Vérifier les disponibilités</button>
 </div>
 
-<!-- LOGIN FORM -->
-<div id="loginForm" class="login-form">
-  <span class="lf-back" onclick="backToChoice()">‹</span>
-  <div class="lf-title">free</div>
-  <div class="lf-sub">Connexion à votre espace mobile</div>
-  <input class="lf-field" type="text" placeholder="Identifiant ou numéro de téléphone">
-  <input class="lf-field" type="password" placeholder="Mot de passe">
-  <button class="btn-connect" onclick="doLogin()">Se connecter</button>
-  <span class="lf-forgot"><a href="#">Identifiant ou mot de passe oublié ?</a></span>
-</div>
 
-<!-- APP SHELL -->
-<div id="appShell" style="display:none">
-  <div class="top-bar" id="topBar">
-    <div class="top-bar-logo">free</div>
-    <div class="top-bar-link" id="topBarRight">Freebox ›</div>
-  </div>
+<!-- DÉCOUVREZ -->
+<section id="decouvrez" style="background:var(--white);padding:80px 40px">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:60px">
+      <div class="section-label">La destination</div>
+      <h2 class="section-title">Découvrez <em>Eden Cala Rossa</em></h2>
+      <p class="section-sub" style="margin:16px auto 0">Des vacances de rêve à Cala Rossa en Corse</p>
+    </div>
 
-  <!-- ACCUEIL -->
-  <div class="page active" id="page-home">
-    <div class="home-header">
-      <div class="home-greeting">Bonjour Marie</div>
-      <div class="home-num">07 77 77 77 77</div>
-      <div class="home-box-btn">
-        <div>
-          <div class="home-box-label">Freebox Ultra</div>
-          <div class="home-box-sub">Fibre 10 Gbps · Actif</div>
+    <!-- Bloc Cala Rossa -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:72px">
+      <div>
+        <div class="section-label">La région</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--dark);margin-bottom:20px">Cala Rossa, <em style="color:var(--terra);font-style:italic">un joyau naturel</em></h3>
+        <p style="font-size:15px;color:var(--grey);line-height:1.9;margin-bottom:16px">À proximité de Porto-Vecchio, Cala Rossa est connue pour sa baie magnifique, encadrée de roches rouges et surplombée par une nature luxuriante. Les eaux turquoise et le sable fin sont un véritable paradis pour les baigneurs et les amateurs de farniente.</p>
+        <p style="font-size:15px;color:var(--grey);line-height:1.9;margin-bottom:16px">Située dans la commune de Lecci, Cala Rossa est bordée par 2 autres plages magnifiques : Saint Cyprien et Benedettu, et est proche de toutes les plages les plus réputées de la Corse du Sud : Palombaggia, Santa Giulia, Rondinara, Pinarello...</p>
+        <p style="font-size:15px;color:var(--grey);line-height:1.9">La région regorge de joyaux à découvrir avec un patrimoine historique et culturel riche, et propose de nombreuses possibilités d'activités sportives, culturelles et gastronomiques.</p>
+      </div>
+      <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(196,98,45,0.15)">
+        <img src="https://l.icdbcdn.com/oh/9d87c2df-9542-47da-9b92-8bc3a11fbabf.jpg?w=1040" alt="Cala Rossa" style="width:100%;height:420px;object-fit:cover;display:block">
+      </div>
+    </div>
+
+    <!-- Bloc La résidence -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:72px">
+      <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(196,98,45,0.15)">
+        <img src="https://l.icdbcdn.com/oh/db89517d-3bd1-4ee1-919c-24db45190955.jpg?w=1040" alt="La résidence" style="width:100%;height:420px;object-fit:cover;display:block">
+      </div>
+      <div>
+        <div class="section-label">La résidence</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--dark);margin-bottom:20px">Fiori di Cala Rossa, <em style="color:var(--terra);font-style:italic">un cadre enchanteur</em></h3>
+        <p style="font-size:15px;color:var(--grey);line-height:1.9;margin-bottom:16px">La Résidence Fiori di Cala Rossa est située à 800m de la belle plage de Cala Rossa et vous propose un cadre enchanteur et rare dans la région avec un parc verdoyant et fleuri de 3 hectares.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          <div style="background:var(--cream);border-radius:12px;padding:14px 16px;border:1.5px solid #e8ddd0">
+            <div style="font-size:20px;margin-bottom:6px">🏊</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark)">Piscine 350 m² chauffée</div>
+          </div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px 16px;border:1.5px solid #e8ddd0">
+            <div style="font-size:20px;margin-bottom:6px">🍹</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark)">Bar/restaurant piscine</div>
+          </div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px 16px;border:1.5px solid #e8ddd0">
+            <div style="font-size:20px;margin-bottom:6px">🚗</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark)">Parking privé + bornes</div>
+          </div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px 16px;border:1.5px solid #e8ddd0">
+            <div style="font-size:20px;margin-bottom:6px">🛥️</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark)">Location de bateaux</div>
+          </div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px 16px;border:1.5px solid #e8ddd0">
+            <div style="font-size:20px;margin-bottom:6px">🎾</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark)">Tennis & Ping-pong</div>
+          </div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px 16px;border:1.5px solid #e8ddd0">
+            <div style="font-size:20px;margin-bottom:6px">💆</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark)">Massage à domicile</div>
+          </div>
         </div>
-        <div>›</div>
+        <p style="font-size:14px;color:var(--grey);line-height:1.8">Entièrement rénovée en 2023, la résidence dispose d'une conciergerie qui vous accueillera à votre arrivée et pourra faciliter l'organisation de vos activités.</p>
       </div>
     </div>
-    <div class="home-cards">
-      <div class="home-card" onclick="showPage('factures')">
-        <div class="home-card-title">🧾 Facture</div>
-        <div class="home-card-sub">Mai 2026</div>
-        <div class="home-card-val">19,99€</div>
-        <div style="font-size:16px;color:var(--grey);margin-top:4px">›</div>
-      </div>
-      <div class="home-card" onclick="showPage('conso')">
-        <div class="home-card-title">📶 Consomm.</div>
-        <div class="home-card-sub">Internet · 5G</div>
-        <div class="home-card-val">187 Go</div>
-        <div class="mini-bar"><div class="mini-bar-fill" style="width:53%"></div></div>
-      </div>
-    </div>
-    <div class="home-promo">
-      <div class="promo-badge">OFFRE EXCLUSIVE</div>
-      <div class="promo-title">Forfait Mobile + Freebox</div>
-      <div class="promo-price"><sup>€</sup>9<sup>,99</sup> <span>/mois</span></div>
-      <div class="promo-desc">Pour les abonnés Freebox. Sans engagement.</div>
-      <button class="promo-btn">En profiter</button>
-    </div>
-  </div>
 
-  <!-- CONSO -->
-  <div class="page" id="page-conso">
-    <div class="page-header">
-      <span class="back-btn" onclick="showPage('home')">‹</span>
-      <div class="page-title">Ma consommation</div>
-    </div>
-    <div class="conso-period">
-      <p>Période du 24/04 au 25/05.<br>Votre forfait sera remis à zéro le 24 mai 2026.</p>
-    </div>
-    <div class="conso-tabs">
-      <div class="conso-tab active" onclick="switchConsoTab(this,'france')">En France</div>
-      <div class="conso-tab" onclick="switchConsoTab(this,'etranger')">À l'étranger</div>
-    </div>
-    <div id="conso-france">
-      <div class="conso-block">
-        <div class="conso-block-head"><span class="conso-icon">📶</span><span class="conso-block-title">Internet</span></div>
-        <div class="conso-block-sub">En France métropolitaine en 5G/4G</div>
-        <div class="conso-val">187 Go / Illimité</div>
-        <div class="conso-bar"><div class="conso-bar-fill" style="width:53%"></div></div>
+    <!-- Bloc Notre appartement -->
+    <div style="background:linear-gradient(135deg,var(--terra),#8b3a1a);border-radius:28px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px">Notre appartement</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--white);margin-bottom:20px">70 m² de <em style="color:var(--sand);font-style:italic">pure sérénité</em></h3>
+        <p style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.9;margin-bottom:16px">Bel appartement de 70 m² avec 3 chambres, entièrement refait à neuf. Confortable, très lumineux et bien équipé avec grande terrasse de 25 m² orientée Sud-Est, vue dégagée sans vis-à-vis. Premier étage d'une petite résidence.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px">
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">❄️ Climatisation</span>
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">🔌 Volets électriques</span>
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">🍖 Barbecue électrique</span>
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">🛋️ Salon d'été</span>
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">🏖️ Transats</span>
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">🍽️ Lave-vaisselle</span>
+          <span style="background:rgba(255,255,255,0.15);color:var(--white);padding:6px 14px;border-radius:20px;font-size:13px">👕 Lave-linge</span>
+        </div>
+        <a href="https://www.edencalarossa.com/fr/lappartement" target="_blank" style="background:var(--white);color:var(--terra);padding:13px 28px;border-radius:30px;font-size:14px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.3s">Voir tous les détails →</a>
       </div>
-      <div class="conso-block">
-        <div class="conso-block-head"><span class="conso-icon">📞</span><span class="conso-block-title">Appels</span></div>
-        <div class="conso-block-sub">En France métropolitaine</div>
-        <div class="conso-detail">Vers la France : 3h42</div>
-        <div class="conso-detail">Vers l'international : 0s</div>
-        <div class="conso-unlimited">Illimité</div>
-        <div class="conso-bar"><div class="conso-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="conso-block">
-        <div class="conso-block-head"><span class="conso-icon">💬</span><span class="conso-block-title">SMS / MMS</span></div>
-        <div class="conso-block-sub">En France métropolitaine</div>
-        <div class="conso-detail">SMS : 24</div>
-        <div class="conso-detail">MMS : 2</div>
-        <div class="conso-unlimited">Illimité</div>
-        <div class="conso-bar"><div class="conso-bar-fill" style="width:100%"></div></div>
-      </div>
-    </div>
-    <div id="conso-etranger" style="display:none">
-      <div class="conso-block">
-        <div class="conso-block-head"><span class="conso-icon">🌍</span><span class="conso-block-title">Internet Europe</span></div>
-        <div class="conso-block-sub">Dans les pays de l'UE et DOM</div>
-        <div class="conso-val">4,2 Go / 35 Go</div>
-        <div class="conso-bar"><div class="conso-bar-fill" style="width:12%"></div></div>
-      </div>
-      <div class="conso-block">
-        <div class="conso-block-head"><span class="conso-icon">📞</span><span class="conso-block-title">Appels depuis l'étranger</span></div>
-        <div class="conso-block-sub">Vers la France et locaux UE</div>
-        <div class="conso-detail">Vers la France : 12min</div>
-        <div class="conso-unlimited">Illimité</div>
-        <div class="conso-bar"><div class="conso-bar-fill" style="width:100%"></div></div>
+      <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.3)">
+        <img src="https://l.icdbcdn.com/oh/1f1fe01f-6cec-439d-9de0-5d4319438380.jpg?w=1040" alt="Notre appartement" style="width:100%;height:380px;object-fit:cover;display:block">
       </div>
     </div>
   </div>
+</section>
 
-  <!-- FACTURES -->
-  <div class="page" id="page-factures">
-    <div class="page-header">
-      <span class="back-btn" onclick="showPage('compte')">‹</span>
-      <div class="page-title">Mes factures</div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label" id="aboutLabel">L'appartement</div>
+      <h2 class="section-title" id="aboutTitle">Votre <em>refuge</em><br>en Corse du Sud</h2>
+      <p class="section-sub" id="aboutDesc">Bel appartement de 70 m² avec 3 chambres, entièrement rénové. Lumineux, confortable et bien équipé avec une grande terrasse de 25 m² orientée Sud-Est, vue dégagée sans vis-à-vis.</p>
+      <div class="about-stats">
+        <div class="stat-box"><div class="stat-n">70</div><div class="stat-l">m² habitables</div></div>
+        <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">chambres</div></div>
+        <div class="stat-box"><div class="stat-n">25</div><div class="stat-l">m² terrasse</div></div>
+      </div>
     </div>
-    <div class="factures-page">
-      <div class="fact-recap">
-        <div class="fact-recap-label">Récapitulatif facture de vos lignes</div>
-        <div class="fact-arr">›</div>
-      </div>
-      <div class="fact-hist-title">Historique de mes factures</div>
-      <div class="fact-hist-num">Pour la ligne : 07 77 77 77 77</div>
-      <div class="fact-hist-note">Seules les 12 dernières factures sont conservées sur votre Espace Abonné, pensez à les télécharger.</div>
-      <div class="fact-last-header">
-        <div class="fact-last-icon">🧾</div>
-        <div class="fact-last-label">Dernière facture</div>
-      </div>
-      <div class="fact-row"><span class="fact-row-date">Mai 2026</span><span class="badge badge-paid">Payée</span><span class="fact-row-amount">19,99€</span></div>
-      <div class="fact-row"><span class="fact-row-date">Avril 2026</span><span class="badge badge-refund">Remboursée</span><span class="fact-row-amount">0,00€</span></div>
-      <div class="fact-row"><span class="fact-row-date">Mars 2026</span><span class="badge badge-paid">Payée</span><span class="fact-row-amount">19,99€</span></div>
-      <div class="fact-row"><span class="fact-row-date">Février 2026</span><span class="badge badge-due">À payer</span><span class="fact-row-amount">0,00€</span></div>
-      <div class="fact-row"><span class="fact-row-date">Janvier 2026</span><span class="badge badge-cancel">Annulée</span><span class="fact-row-amount">0,00€</span></div>
-      <div class="fact-row"><span class="fact-row-date">Décembre 2025</span><span class="badge badge-paid">Payée</span><span class="fact-row-amount">19,99€</span></div>
+    <div class="about-img">
+      <img src="https://l.icdbcdn.com/oh/6a857290-08ae-488b-be34-6b4c3100b736.jpg?w=1040" alt="Appartement Eden Cala Rossa">
+      <div class="about-img-badge">🌊 À 800m<br>de la plage</div>
     </div>
   </div>
+</section>
 
-  <!-- MON COMPTE -->
-  <div class="page" id="page-compte">
-    <div class="account-page">
-      <div class="account-header">
-        <div class="account-name">Marie Dupont</div>
-        <div class="account-num">07 77 77 77 77</div>
-      </div>
-      <div class="account-forfait">
-        <div class="af-label">Mon forfait</div>
-        <div class="af-name">Free 5G — 350 Go</div>
-        <div class="af-detail">5G illimitée en France · Roaming 115 pays</div>
-        <div class="af-price">19,99€ <span>/mois · sans engagement</span></div>
-        <button class="btn-change">Détail de mon forfait ›</button>
-      </div>
-      <div class="account-menu">
-        <div class="account-menu-item" onclick="showPage('conso')">
-          <div class="ami-left"><span class="ami-icon">📊</span><span class="ami-label">Ma consommation</span></div>
-          <span class="ami-arr">›</span>
-        </div>
-        <div class="account-menu-item" onclick="showPage('factures')">
-          <div class="ami-left"><span class="ami-icon">🧾</span><span class="ami-label">Mes factures</span></div>
-          <span class="ami-arr">›</span>
-        </div>
-        <div class="account-menu-item">
-          <div class="ami-left"><span class="ami-icon">📱</span><span class="ami-label">Gérer ma SIM / eSIM</span></div>
-          <span class="ami-arr">›</span>
-        </div>
-        <div class="account-menu-item">
-          <div class="ami-left"><span class="ami-icon">🔑</span><span class="ami-label">Modifier mon mot de passe</span></div>
-          <span class="ami-arr">›</span>
-        </div>
-        <div class="account-menu-item" onclick="showPage('chatbot')">
-          <div class="ami-left"><span class="ami-icon">❌</span><span class="ami-label">Demande de résiliation</span></div>
-          <span class="ami-arr">›</span>
-        </div>
-      </div>
-      <div class="logout-row">
-        <button class="btn-logout" onclick="doLogout()">Se déconnecter</button>
-      </div>
-    </div>
+<!-- FEATURES -->
+<section class="features">
+  <div style="text-align:center;margin-bottom:8px">
+    <div class="section-label" id="featLabel">Équipements & Services</div>
+    <h2 class="section-title" id="featTitle">Tout pour des vacances <em>parfaites</em></h2>
   </div>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">🏊</div><div class="feature-title" id="f1t">Piscine 350 m²</div><div class="feature-desc" id="f1d">Piscine chauffée avec bar/restaurant au bord de l'eau. Un espace de détente exceptionnel.</div></div>
+    <div class="feature-card"><div class="feature-icon">❄️</div><div class="feature-title" id="f2t">Climatisation</div><div class="feature-desc" id="f2d">Climatisation réversible dans toutes les pièces pour un confort optimal en toute saison.</div></div>
+    <div class="feature-card"><div class="feature-icon">🌅</div><div class="feature-title" id="f3t">Grande terrasse</div><div class="feature-desc" id="f3d">25 m² avec vue dégagée, salon d'été, transats et barbecue électrique.</div></div>
+    <div class="feature-card"><div class="feature-icon">🚗</div><div class="feature-title" id="f4t">Parking privé</div><div class="feature-desc" id="f4d">Parking sécurisé avec bornes de recharge électrique inclus dans le séjour.</div></div>
+    <div class="feature-card"><div class="feature-icon">🛥️</div><div class="feature-title" id="f5t">Location de bateau</div><div class="feature-desc" id="f5d">Service de location de bateaux disponible directement depuis la résidence.</div></div>
+    <div class="feature-card"><div class="feature-icon">🎾</div><div class="feature-title" id="f6t">Tennis & Ping-pong</div><div class="feature-desc" id="f6d">Court de tennis en face de la résidence et table de ping-pong sur place.</div></div>
+  </div>
+</section>
 
-  <!-- REGLAGES -->
-  <div class="page" id="page-reglages">
-    <div class="settings-page">
-      <div style="padding:20px 4px 10px"><div style="font-size:20px;font-weight:700;color:var(--white)">Réglages</div></div>
-      <div class="settings-section">
-        <div class="settings-section-title">Notifications</div>
-        <div class="settings-group">
-          <div class="settings-item">
-            <div><div class="si-label">Factures</div><div class="si-sub">Nouvelle facture disponible</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="settings-item">
-            <div><div class="si-label">Consommation</div><div class="si-sub">Alerte seuil de data</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="settings-item">
-            <div><div class="si-label">Offres Free</div><div class="si-sub">Promotions et nouveautés</div></div>
-            <div class="toggle" onclick="this.classList.toggle('on')"></div>
-          </div>
-        </div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">Application</div>
-        <div class="settings-group">
-          <div class="settings-item">
-            <div><div class="si-label">Face ID / Touch ID</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="settings-item">
-            <div><div class="si-label">Langue</div></div>
-            <div style="display:flex;align-items:center"><span class="si-val">Français</span><span class="si-arr">›</span></div>
-          </div>
-          <div class="settings-item">
-            <div><div class="si-label">Version</div></div>
-            <span class="si-val">3.2.1</span>
-          </div>
-        </div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">Support</div>
-        <div class="settings-group">
-          <div class="settings-item" onclick="showPage('chatbot')">
-            <div><div class="si-label">🤖 Freebot</div></div>
-            <span class="si-arr">›</span>
-          </div>
-          <div class="settings-item">
-            <div><div class="si-label">Appeler le 3244</div></div>
-            <span class="si-arr">›</span>
-          </div>
-          <div class="settings-item">
-            <div><div class="si-label">Mentions légales</div></div>
-            <span class="si-arr">›</span>
-          </div>
-        </div>
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header">
+    <div class="section-label" id="galLabel">Galerie</div>
+    <h2 class="section-title" id="galTitle">La beauté de <em>Cala Rossa</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/42359199-dc22-4930-91a2-c93914dfd934.jpg?w=2080" alt="Vue principale"></div>
+    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/252a7938-0ad9-4a67-8fea-acd9c8f922cb.jpg?w=2080" alt="Appartement"></div>
+    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/7d5f67cf-e8eb-4ac3-a585-51a2e9d4b18e.jpg?w=2080" alt="Terrasse"></div>
+    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/b4fed6fa-7a1f-4561-8d11-453a6a38289f.jpg?w=2080" alt="Piscine"></div>
+    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/f7976e96-f357-49c2-9e26-aae8c28efa92.jpg?w=2080" alt="Plage"></div>
+  </div>
+</section>
+
+<!-- LOCALISATION -->
+<section class="localisation" id="localisation">
+  <div style="text-align:center;margin-bottom:8px">
+    <div class="section-label" id="locLabel">Localisation</div>
+    <h2 class="section-title" id="locTitle">Au cœur de la <em>Corse du Sud</em></h2>
+  </div>
+  <div class="loc-grid">
+    <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(196,98,45,0.15);height:400px">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.5!2d9.3760!3d41.6290!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d9f1b2c0000001%3A0x0!2sFiori+di+Cala+Rossa%2C+Route+de+Cala+Rossa%2C+20137+Lecci%2C+France!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr&q=Fiori+di+Cala+Rossa,+Route+de+Cala+Rossa,+20137+Lecci,+France" width="100%" height="400" style="border:0;display:block" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div>
+      <p class="section-sub" style="margin-bottom:24px" id="locDesc">Idéalement situé à Lecci, à quelques minutes de Porto-Vecchio et des plus belles plages de Corse du Sud.</p>
+      <div class="loc-list">
+        <div class="loc-item"><div class="loc-icon">🏖️</div><div><div class="loc-name">Plage de Cala Rossa</div><div class="loc-dist">800 m à pied</div></div></div>
+        <div class="loc-item"><div class="loc-icon">🏖️</div><div><div class="loc-name">Plage de Palombaggia</div><div class="loc-dist">12 km</div></div></div>
+        <div class="loc-item"><div class="loc-icon">🏖️</div><div><div class="loc-name">Santa Giulia</div><div class="loc-dist">15 km</div></div></div>
+        <div class="loc-item"><div class="loc-icon">🏙️</div><div><div class="loc-name">Porto-Vecchio (centre)</div><div class="loc-dist">10 km</div></div></div>
+        <div class="loc-item"><div class="loc-icon">✈️</div><div><div class="loc-name">Aéroport de Figari</div><div class="loc-dist">25 km</div></div></div>
+        <div class="loc-item"><div class="loc-icon">🏔️</div><div><div class="loc-name">Bonifacio</div><div class="loc-dist">40 km</div></div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- CHATBOT CORAL -->
-  <div class="page" id="page-chatbot">
-    <div class="chat-header">
-      <div class="chat-av"><div class="rb-wrap" id="rbMain"><svg width="38" height="38" viewBox="0 0 38 38"><circle cx="19" cy="19" r="18" fill="#1a1a1a" stroke="#e2001a" stroke-width="2"/><text x="19" y="26" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#e2001a">F</text></svg></div></div>
-      <div class="chat-info">
-        <h3>Freebot</h3>
-        <p>Assistant IA · Free · Disponible 24h/24</p>
-      </div>
-      <button class="chat-voice-btn" id="voiceBtn" onclick="toggleVoice()">
-        <div class="voice-dot"></div>
-        <span id="voiceLabel">🔇 Voix</span>
-      </button>
-    </div>
-    <div class="chat-messages" id="chatMessages">
-      <div class="c-msg coral">
-        <div class="c-av-sm"><div class="rb-wrap" style="width:28px;height:28px"><svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#1a1a1a" stroke="#e2001a" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#e2001a">F</text></svg></div></div>
-        <div>
-          <div class="c-bubble">Bonjour ! Je suis Freebot, l'assistant IA de Free.<br>Comment puis-je vous aider ?</div>
-          <div class="c-logo-wrap"><span class="c-logo-static">free</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="chat-chips">
-      <div class="chip" onclick="sendChip('Je veux changer de forfait')">Changer de forfait</div>
-      <div class="chip" onclick="sendChip('Quelle est ma consommation ?')">Ma conso</div>
-      <div class="chip" onclick="sendChip('Comment résilier mon abonnement ?')">Résilier</div>
-      <div class="chip" onclick="sendChip('Problème réseau')">Réseau</div>
-      <div class="chip" onclick="sendChip('Télécharger ma facture')">Facture</div>
-    </div>
-    <div id="ratingWrap" class="rating-wrap">
-      <div class="rating-title">Comment s'est passée cette conversation ?</div>
-      <div class="rating-stars">
-        <span class="star" onclick="setRating(1)">⭐</span>
-        <span class="star" onclick="setRating(2)">⭐</span>
-        <span class="star" onclick="setRating(3)">⭐</span>
-        <span class="star" onclick="setRating(4)">⭐</span>
-        <span class="star" onclick="setRating(5)">⭐</span>
-      </div>
-      <div class="rating-msg" id="ratingMsg"></div>
-      <button class="rating-send" id="ratingSend" onclick="sendRating()">Envoyer mon avis</button>
-      <div class="rating-done" id="ratingDone"></div>
-    </div>
+<!-- AVIS -->
+<section class="avis" id="avis">
+  <div style="text-align:center;margin-bottom:8px">
+    <div class="section-label" id="avisLabel">Avis clients</div>
+    <h2 class="section-title" style="color:var(--white)" id="avisTitle">Ce que disent nos <em style="color:var(--coral)">voyageurs</em></h2>
+  </div>
+  <div class="avis-grid">
+    <div class="avis-card"><div class="avis-stars">★★★★★</div><p class="avis-text">"Un appartement magnifique, très bien équipé. La terrasse avec vue est un vrai plus. On reviendra !"</p><div class="avis-author">— Sophie M., Paris</div></div>
+    <div class="avis-card"><div class="avis-stars">★★★★★</div><p class="avis-text">"Emplacement idéal, à deux pas de la plage. La résidence est superbe avec sa piscine immense."</p><div class="avis-author">— Jean-Luc B., Lyon</div></div>
+    <div class="avis-card"><div class="avis-stars">★★★★★</div><p class="avis-text">"Séjour parfait ! L'appartement est spacieux et moderne. Les propriétaires sont très réactifs."</p><div class="avis-author">— Marie & Thomas, Bordeaux</div></div>
+  </div>
+</section>
 
-    <div id="ficheWrap" class="fiche-wrap" style="display:none">
-      <div class="fiche-header">
-        <span class="fiche-title">📋 FICHE DOSSIER</span>
-        <div class="fiche-btns">
-          <button class="fiche-btn" id="ficheMinBtn" onclick="toggleFiche()">— Réduire</button>
-          <button class="fiche-btn" onclick="expandFiche()" title="Plein écran">⛶</button>
-          <button class="fiche-btn" onclick="copyFiche()">📋 Copier</button>
-        </div>
+<!-- CONTACT -->
+<section style="background:var(--cream);padding:60px 40px;text-align:center">
+  <div class="section-label" id="ctaLabel">Contact & Réservation</div>
+  <h2 class="section-title" id="ctaTitle">Prêt pour vos <em>vacances de rêve</em> ?</h2>
+  <p class="section-sub" style="margin:16px auto 32px" id="ctaDesc">Contactez-nous pour toute question ou réservez directement en ligne.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+    <a href="https://checkout.lodgify.com/fr/edencalarossa/620071/reservation?currency=EUR" target="_blank" class="btn-primary" id="ctaBook">Réserver maintenant</a>
+    <a href="tel:0623396670" class="btn-ghost" style="color:var(--text);border-color:var(--terra);text-decoration:none">📞 06 23 39 66 70</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Eden Cala Rossa</div>
+      <p class="footer-desc">Un appartement d'exception au cœur de la magnifique Corse du Sud, à deux pas des plages paradisiaques de Cala Rossa.</p>
+      <div class="footer-contact">
+        <div>📞 <a href="tel:0623396670">06 23 39 66 70</a></div>
+        <div>📧 <a href="mailto:contact@edencalarossa.com">contact@edencalarossa.com</a></div>
+        <div>📍 Lecci, Porto-Vecchio, Corse du Sud</div>
       </div>
-      <div class="fiche-body" id="ficheBody"></div>
     </div>
-    <div class="chat-input-row">
-      <button id="mic-btn" onclick="toggleMic()" title="Micro">🎙️</button>
-      <input id="chat-input" type="text" placeholder="Posez votre question…" onkeydown="if(event.key==='Enter')sendMessage()">
-      <button id="send-btn" onclick="sendMessage()">➤</button>
+    <div class="footer-col">
+      <h4 id="footNav">Navigation</h4>
+      <a href="javascript:void(0)">Accueil</a>
+      <a href="javascript:void(0)">L'appartement</a>
+      <a href="javascript:void(0)">Galerie photos</a>
+      <a href="javascript:void(0)">Localisation</a>
+      <a href="javascript:void(0)">Avis clients</a>
     </div>
-    <!-- MODAL PLEIN ECRAN -->
-    <div class="fiche-modal" id="ficheModal" onclick="closeFicheModal(event)">
-      <div class="fiche-modal-box">
-        <div class="fiche-modal-header">
-          <span class="fiche-modal-title">📋 FICHE DOSSIER</span>
-          <div class="fiche-modal-btns">
-            <button class="fiche-btn" onclick="copyFicheModal()">📋 Copier</button>
-            <button class="fiche-btn" onclick="closeFicheModal()">✕ Fermer</button>
-          </div>
-        </div>
-        <div class="fiche-modal-body" id="ficheModalBody"></div>
-      </div>
+    <div class="footer-col">
+      <h4 id="footInfo">Informations</h4>
+      <a href="javascript:void(0)">Disponibilités</a>
+      <a href="javascript:void(0)">Tarifs</a>
+      <a href="javascript:void(0)">Conditions</a>
+      <a href="https://www.facebook.com/eden.immo.889655/" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/edenimmovacances/" target="_blank">Instagram</a>
     </div>
   </div>
+  <div class="footer-bottom">
+    <span>© 2026 Eden Cala Rossa — Tous droits réservés</span>
+    <span>Corse du Sud, France 🇫🇷</span>
+  </div>
+</footer>
 
+<!-- CHATBOT FAB -->
+<button class="chatbot-fab" onclick="toggleChat()" id="chatFab" title="Guide touristique IA">🌊</button>
 
-  <!-- PAGE MANAGER -->
-  <div class="page" id="page-manager">
-    <!-- Login -->
-    <div id="mgrLoginWrap" class="mgr-login-wrap">
-      <div class="mgr-login-box">
-        <div class="mgr-login-icon">⚙️</div>
-        <div class="mgr-login-title">Manager</div>
-        <div class="mgr-login-sub">Accès réservé aux conseillers Free</div>
-        <input class="lf-field" type="text" id="mgrUser" placeholder="Identifiant" style="margin-bottom:12px">
-        <input class="lf-field" type="password" id="mgrPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')mgrLogin()">
-        <button class="btn-connect" onclick="mgrLogin()">Connexion Manager</button>
-        <div class="mgr-hint">Identifiants : <span>manager / free2026</span></div>
-      </div>
+<!-- CHATBOT WINDOW -->
+<div class="chatbot-window" id="chatWindow">
+  <div class="chat-head">
+    <div class="chat-av">🌊</div>
+    <div class="chat-head-info">
+      <h3 id="chatName">Corsica Guide</h3>
+      <p id="chatSub">Votre guide touristique IA · 24h/24</p>
     </div>
-    <!-- Dashboard -->
-    <div class="mgr-dash" id="mgrDash">
-      <div class="mgr-dash-header">
-        <div class="mgr-dash-title">Espace <span>Manager</span></div>
-        <div style="display:flex;gap:8px">
-          <button class="btn-logout" onclick="mgrClearAll()" style="border-color:rgba(226,0,26,0.3);color:var(--red)">🗑️ Vider</button>
-          <button class="btn-logout" onclick="mgrLogout()">Déconnexion</button>
-        </div>
-      </div>
-      <div class="mgr-stats">
-        <div class="mgr-stat"><div class="mgr-stat-n" id="mgrStatConv">0</div><div class="mgr-stat-l">Conversations</div></div>
-        <div class="mgr-stat"><div class="mgr-stat-n" id="mgrStatNote">—</div><div class="mgr-stat-l">Note moy.</div></div>
-        <div class="mgr-stat"><div class="mgr-stat-n" id="mgrStatFiches">0</div><div class="mgr-stat-l">Fiches</div></div>
-      </div>
-      <div class="mgr-section">
-        <div class="mgr-section-title">💬 Conversations sauvegardées</div>
-        <div id="mgrConvList"><div class="mgr-empty">Aucune conversation encore.<br>Les échanges avec Freebot apparaîtront ici.</div></div>
-      </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="msg bot">
+      <div class="msg-bubble" id="welcomeMsg">Bonjour ! Je suis votre guide touristique pour la région de Porto-Vecchio. Que souhaitez-vous découvrir ? 🌊<br><br>Hello! I'm your tourist guide for the Porto-Vecchio area. What would you like to discover? 🏖️</div>
     </div>
   </div>
-
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <div class="bnav-item active" id="bnav-home" onclick="showPage('home')">
-      <div class="bnav-icon">🏠</div>
-      <div class="bnav-label">Accueil</div>
-    </div>
-    <div class="bnav-item" id="bnav-compte" onclick="showPage('compte')">
-      <div class="bnav-icon">👤</div>
-      <div class="bnav-label">Mon Compte</div>
-    </div>
-    <div class="bnav-item" id="bnav-chatbot" onclick="showPage('chatbot')">
-      <div class="bnav-icon" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px"><svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="12" fill="#1a1a1a" stroke="#e2001a" stroke-width="1.5"/><text x="13" y="18" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="700" fill="#e2001a">F</text></svg></div>
-      <div class="bnav-label">Freebot</div>
-    </div>
-    <div class="bnav-item" id="bnav-manager" onclick="showPage('manager')">
-      <div class="bnav-icon">📊</div>
-      <div class="bnav-label">Manager</div>
-    </div>
-    <div class="bnav-item" id="bnav-reglages" onclick="showPage('reglages')">
-      <div class="bnav-icon">⚙️</div>
-      <div class="bnav-label">Réglages</div>
-    </div>
+  <div class="chat-chips-wrap" id="chatChips">
+    <span class="chat-chip" onclick="sendChip('Quelles sont les plus belles plages ?')">🏖️ Plages</span>
+    <span class="chat-chip" onclick="sendChip('Que faire à Porto-Vecchio ?')">🏙️ Porto-Vecchio</span>
+    <span class="chat-chip" onclick="sendChip('Restaurants recommandés ?')">🍽️ Restaurants</span>
+    <span class="chat-chip" onclick="sendChip('Activités nautiques ?')">⛵ Nautisme</span>
+    <span class="chat-chip" onclick="sendChip('Comment venir en Corse ?')">✈️ Accès</span>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-in" type="text" placeholder="Posez votre question... / Ask your question..." onkeydown="if(event.key==='Enter')sendChatMsg()">
+    <button id="chat-send" onclick="sendChatMsg()">➤</button>
   </div>
 </div>
 
 <script>
-const pages=['home','conso','factures','compte','reglages','chatbot','manager'];
-const bnavIds=['home','compte','chatbot','reglages','manager'];
-function showPage(id){
-  pages.forEach(p=>{const el=document.getElementById('page-'+p);if(el)el.classList.toggle('active',p===id);});
-  bnavIds.forEach(k=>{const el=document.getElementById('bnav-'+k);if(el)el.classList.toggle('active',k===id);});
-  window.scrollTo(0,0);
+// ══ NAV SCROLL ══
+window.addEventListener('scroll',function(){
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80);
+});
+
+// ══ SECTION SCROLL ══
+function showSection(id){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
 }
-function switchConsoTab(el,tab){
-  document.querySelectorAll('.conso-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('conso-france').style.display=tab==='france'?'block':'none';
-  document.getElementById('conso-etranger').style.display=tab==='etranger'?'block':'none';
+
+// ══ LANGUE ══
+var lang='fr';
+var translations={
+  heroEyebrow:{fr:'✦ Corse du Sud · Porto-Vecchio ✦',en:'✦ Southern Corsica · Porto-Vecchio ✦'},
+  heroTitle:{fr:'Bienvenue au<br><em>Paradis Corse</em>',en:'Welcome to<br><em>Corsican Paradise</em>'},
+  heroSub:{fr:"Un appartement d'exception à Cala Rossa, entre plages turquoise, maquis parfumé et art de vivre méditerranéen.",en:"An exceptional apartment at Cala Rossa, between turquoise beaches, fragrant maquis and Mediterranean art de vivre."},
+  heroBook:{fr:'Réserver maintenant',en:'Book now'},
+  heroDiscover:{fr:'Découvrir',en:'Discover'},
+  navBookBtn:{fr:'Réserver',en:'Book'},
+  labelArrivee:{fr:'Arrivée',en:'Check-in'},
+  labelDepart:{fr:'Départ',en:'Check-out'},
+  labelPersonnes:{fr:'Personnes',en:'Guests'},
+  bookBtn:{fr:'Vérifier les disponibilités',en:'Check availability'},
+  aboutLabel:{fr:"L'appartement",en:'The apartment'},
+  aboutTitle:{fr:'Votre <em>refuge</em><br>en Corse du Sud',en:'Your <em>retreat</em><br>in Southern Corsica'},
+  aboutDesc:{fr:"Bel appartement de 70 m² avec 3 chambres, entièrement rénové. Lumineux, confortable et bien équipé avec une grande terrasse de 25 m² orientée Sud-Est.",en:"Beautiful 70 m² apartment with 3 bedrooms, fully renovated. Bright, comfortable and well-equipped with a large 25 m² south-east facing terrace."},
+  featLabel:{fr:'Équipements & Services',en:'Amenities & Services'},
+  featTitle:{fr:'Tout pour des vacances <em>parfaites</em>',en:'Everything for a <em>perfect</em> holiday'},
+  galLabel:{fr:'Galerie',en:'Gallery'},
+  galTitle:{fr:'La beauté de <em>Cala Rossa</em>',en:'The beauty of <em>Cala Rossa</em>'},
+  locLabel:{fr:'Localisation',en:'Location'},
+  locTitle:{fr:'Au cœur de la <em>Corse du Sud</em>',en:'In the heart of <em>Southern Corsica</em>'},
+  locDesc:{fr:"Idéalement situé à Lecci, à quelques minutes de Porto-Vecchio et des plus belles plages de Corse du Sud.",en:"Ideally located in Lecci, just minutes from Porto-Vecchio and the most beautiful beaches of Southern Corsica."},
+  avisLabel:{fr:'Avis clients',en:'Guest reviews'},
+  avisTitle:{fr:'Ce que disent nos <em style="color:var(--coral)">voyageurs</em>',en:'What our <em style="color:var(--coral)">guests</em> say'},
+  ctaLabel:{fr:'Contact & Réservation',en:'Contact & Booking'},
+  ctaTitle:{fr:'Prêt pour vos <em>vacances de rêve</em> ?',en:'Ready for your <em>dream holiday</em>?'},
+  ctaDesc:{fr:'Contactez-nous pour toute question ou réservez directement en ligne.',en:'Contact us for any question or book directly online.'},
+  ctaBook:{fr:'Réserver maintenant',en:'Book now'},
+  chatName:{fr:'Corsica Guide',en:'Corsica Guide'},
+  chatSub:{fr:'Votre guide touristique IA · 24h/24',en:'Your AI tourist guide · 24/7'},
+  welcomeMsg:{fr:'Bonjour ! Je suis votre guide touristique pour la région de Porto-Vecchio. Que souhaitez-vous découvrir ? 🌊<br><br>Hello! I\'m your tourist guide for the Porto-Vecchio area. What would you like to discover? 🏖️',en:'Hello! I\'m your AI tourist guide for the Porto-Vecchio area. What would you like to discover? 🏖️<br><br>Bonjour ! Je suis votre guide touristique IA. Que souhaitez-vous découvrir ? 🌊'},
+  langBtn:{fr:'EN',en:'FR'},
+};
+
+function toggleLang(){
+  lang=lang==='fr'?'en':'fr';
+  Object.keys(translations).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.innerHTML=translations[id][lang];
+  });
 }
-function showLoginForm(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('loginForm').classList.add('visible');
+
+// ══ CHATBOT ══
+var chatHistory=[];
+var chatTyping=false;
+var chatOpen=false;
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
 }
-function backToChoice(){
-  document.getElementById('loginForm').classList.remove('visible');
-  document.getElementById('loginScreen').style.display='flex';
-}
-function doLogin(){
-  currentConvId=null;
-  document.getElementById('loginForm').classList.remove('visible');
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('appShell').style.display='block';
-}
-function doLogout(){
-  document.getElementById('appShell').style.display='none';
-  document.getElementById('loginScreen').style.display='flex';
-  showPage('home');
-}
-let chatHistory=[],isTyping=false,voiceOn=false;
-function toggleVoice(){
-  voiceOn=!voiceOn;
-  document.getElementById('voiceBtn').classList.toggle('on',voiceOn);
-  document.getElementById('voiceLabel').textContent=voiceOn?'🔊 Voix':'🔇 Voix';
-  if(voiceOn)speak('La voix de Freebot est activée.');
-}
-function speak(t){
-  if(!voiceOn||!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(t);
-  u.lang='fr-FR';
-  u.rate=0.9;
-  u.pitch=1.1;
-  window.speechSynthesis.speak(u);
-}
-async function addMsg(role,text){
-  const wrap=document.getElementById('chatMessages');
-  const div=document.createElement('div');
-  div.className='c-msg '+(role==='user'?'user':'coral');
-  if(role==='user'){
-    div.innerHTML='<div class="c-av-sm" style="background:var(--dark3);font-size:12px;font-weight:700">M</div><div><div class="c-bubble">'+text+'</div></div>';
-  }else{
-    // Stopper spinning sur anciens messages
-    document.querySelectorAll('.c-msg.coral .rb-wrap').forEach(r=>r.classList.remove('spinning'));
-    div.innerHTML='<div class="c-av-sm"><div class="rb-wrap" style="width:28px;height:28px"><svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#1a1a1a" stroke="#e2001a" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#e2001a">F</text></svg></div></div><div><div class="c-bubble">'+text.replace(/\n/g,'<br>')+'</div><div class="c-logo-wrap"><span class="c-logo-static">free</span></div></div>';
-    if(voiceOn)speak(text);
-    await mgrSaveConv();
-    if(checkForGoodbye(text)){setTimeout(showRating,800);}
+
+function addChatMsg(role,text){
+  var msgs=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg '+(role==='user'?'user':'bot');
+  div.innerHTML='<div class="msg-bubble">'+text.replace(/\n/g,'<br>')+'</div>';
+  if(role==='bot'){
+    var lang_label=document.createElement('div');
+    lang_label.className='msg-lang';
+    lang_label.textContent='Corsica Guide 🌊';
+    div.appendChild(lang_label);
   }
-  wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
 }
+
 function showTyping(){
-  // Stopper toutes les animations de spin
-  document.querySelectorAll('.rb-wrap').forEach(r=>r.classList.remove('thinking','spinning'));
-  const wrap=document.getElementById('chatMessages');
-  const div=document.createElement('div');div.className='c-msg coral';div.id='typing-ind';
-  div.innerHTML='<div class="c-av-sm"><div class="rb-wrap" style="width:28px;height:28px"><svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#1a1a1a" stroke="#e2001a" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#e2001a">F</text></svg></div></div><div><div class="c-bubble"><div style="display:flex;gap:4px;align-items:center"><div class="c-dot"></div><div class="c-dot"></div><div class="c-dot"></div></div></div></div>';
-  wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
-  // Activer spin uniquement sur le dernier avatar
-  var allWraps=wrap.querySelectorAll('.rb-wrap');
-  if(allWraps.length>0)allWraps[allWraps.length-1].classList.add('spinning');
+  var msgs=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg bot';div.id='typingDiv';
+  div.innerHTML='<div class="msg-bubble"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
 }
-function removeTyping(){const t=document.getElementById('typing-ind');if(t)t.remove();
-  document.querySelectorAll('.rb-wrap').forEach(r=>r.classList.remove('thinking'));}
-function sendChip(txt){document.getElementById('chat-input').value=txt;sendMessage();}
-async function sendMessage(){
-  // Cacher les chips dès le premier message
-  var chips=document.querySelector('.chat-chips');
-  if(chips) chips.style.display='none';
-  if(isTyping)return;
-  const input=document.getElementById('chat-input');
-  const msg=input.value.trim();if(!msg)return;
-  input.value='';addMsg('user',msg);
+function removeTyping(){var t=document.getElementById('typingDiv');if(t)t.remove();}
+
+function sendChip(txt){
+  document.getElementById('chat-in').value=txt;
+  sendChatMsg();
+  document.getElementById('chatChips').style.display='none';
+}
+
+async function sendChatMsg(){
+  if(chatTyping)return;
+  var input=document.getElementById('chat-in');
+  var msg=input.value.trim();if(!msg)return;
+  input.value='';
+  document.getElementById('chatChips').style.display='none';
+  addChatMsg('user',msg);
   chatHistory.push({role:'user',content:msg});
-  isTyping=true;document.getElementById('send-btn').disabled=true;showTyping();
+  chatTyping=true;document.getElementById('chat-send').disabled=true;
+  showTyping();
   try{
-    const res=await fetch('/api/chat',{
+    var res=await fetch('/api/chat',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-5',max_tokens:250,
-        system:"Tu es Freebot, assistant IA de Free Mobile. Marie est abonnée Forfait Free 5G+ 350Go à 19,99€/mois. OFFRES MOBILE : Forfait 2€ (2h+50Mo, gratuit avec Freebox), Série 140Go (11,99€ puis 19,99€), Free 5G+ 350Go (19,99€, 9,99€ avec Freebox), Free Max illimité (29,99€, 19,99€ avec Freebox). FREEBOX : Pop S 24,99€ fixe, Pop 29,99€ puis 39,99€, Ultra 49,99€ puis 59,99€ avec Netflix+Prime+Disney+Canal+. Résiliation ancienne box prise en charge jusqu'à 100€. RÈGLES ABSOLUES : 1 phrase max. Jamais de liste. Une question à la fois. Tutoie JAMAIS le client, toujours vouvoyer (vous, votre, vos). Si résiliation : comprends et propose une solution. IMPORTANT : quand le problème est résolu ou que le client n'a plus de questions, tu DOIS obligatoirement terminer par 'Bonne journée !'.",
+        model:'claude-sonnet-4-5',
+        max_tokens:400,
+        system:"Tu es Corsica Guide, un assistant guide touristique bilingue français/anglais pour la région de Porto-Vecchio en Corse du Sud. Tu représentes l'appartement Eden Cala Rossa situé à Lecci, à 800m de la plage de Cala Rossa. Tu connais parfaitement la région : plages (Palombaggia, Santa Giulia, Rondinara, Cala Rossa, Pinarello), restaurants, activités (nautisme, randonnée, VTT), culture corse, gastronomie, sites historiques (Bonifacio, Aléria). Réponds en français ET en anglais dans chaque réponse (français d'abord, puis anglais). Sois chaleureux, enthousiaste et concis (2-3 phrases par langue max).",
         messages:chatHistory
       })
     });
     removeTyping();
-    const data=await res.json();
-    const reply=data.content?.[0]?.text||'Désolé, une erreur est survenue.';
-    chatHistory.push({role:'assistant',content:reply});addMsg('coral',reply);
-  }catch(e){removeTyping();addMsg('coral','Désolé, une erreur de connexion. Veuillez réessayer.');}
-  isTyping=false;document.getElementById('send-btn').disabled=false;
-}
-
-// ── MICRO ──
-let recognition=null;
-function toggleMic(){
-  const btn=document.getElementById('mic-btn');
-  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){
-    alert('La reconnaissance vocale nécessite Chrome ou Edge.');return;
-  }
-  if(btn.classList.contains('rec')){
-    if(recognition)recognition.stop();
-    btn.classList.remove('rec');btn.textContent='🎙️';return;
-  }
-  recognition=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
-  recognition.lang='fr-FR';recognition.continuous=false;recognition.interimResults=false;
-  btn.classList.add('rec');btn.textContent='🔴';
-  recognition.onresult=function(e){
-    const txt=e.results[0][0].transcript;
-    document.getElementById('chat-input').value=txt;
-    btn.classList.remove('rec');btn.textContent='🎙️';
-    sendMessage();
-  };
-  recognition.onerror=function(e){
-    btn.classList.remove('rec');btn.textContent='🎙️';
-    if(e.error==='not-allowed')alert('Autorisez le micro dans votre navigateur.');
-    else if(e.error==='no-speech')alert('Aucune voix détectée. Réessayez.');
-  };
-  recognition.onend=function(){btn.classList.remove('rec');btn.textContent='🎙️';};
-  recognition.start();
-}
-
-// ── FICHE DOSSIER ──
-let ficheVisible=true;
-async function genFiche(){
-  var btn=document.getElementById("gen-fiche-btn");
-  if(chatHistory.length<2){alert("Commencez une conversation avec Freebot avant de generer la fiche.");return;}
-  btn.textContent="Generation en cours...";btn.disabled=true;
-  var conv=chatHistory.map(function(m){return (m.role==="user"?"Client":"Freebot")+" : "+m.content;}).join(" | ");
-  var prompt="Genere une fiche dossier structuree pour cette conversation. Sections : MOTIF DE CONTACT, RESUME DE LA DEMANDE, ACTIONS EFFECTUEES, STATUT (Resolu/En cours/Escalade), NOTES. Conversation : "+conv;
-  try{
-    var res=await fetch("/api/chat",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        model:"claude-sonnet-4-5",
-        max_tokens:800,
-        system:"Tu es un assistant qui cree des fiches dossier pour un operateur telecom. Reponds en francais avec une fiche claire et structuree.",
-        messages:[{role:"user",content:prompt}]
-      })
-    });
     var data=await res.json();
-    var fiche=(data.content&&data.content[0])?data.content[0].text:"Erreur lors de la generation.";
-    document.getElementById("ficheBody").textContent=fiche;
-    document.getElementById("ficheModalBody").textContent=fiche;
-    document.getElementById("ficheWrap").style.display="block";
-    document.getElementById("ficheBody").classList.remove("collapsed");
-    ficheVisible=true;
-    document.getElementById("ficheMinBtn").textContent="— Réduire";
-    btn.textContent="Regenerer la fiche";btn.disabled=false;
+    var reply=(data.content&&data.content[0])?data.content[0].text:'Désolé, une erreur est survenue. / Sorry, an error occurred.';
+    chatHistory.push({role:'assistant',content:reply});
+    addChatMsg('bot',reply);
   }catch(e){
-    btn.textContent="Generer la fiche dossier";btn.disabled=false;
-    alert("Erreur de connexion.");
+    removeTyping();
+    addChatMsg('bot','Désolé, une erreur de connexion. / Sorry, connection error.');
   }
+  chatTyping=false;document.getElementById('chat-send').disabled=false;
 }
-
-function toggleFiche(){
-  var body=document.getElementById('ficheBody');
-  var btn=document.getElementById('ficheMinBtn');
-  if(!body||!btn) return;
-  var isCollapsed=body.classList.contains('collapsed');
-  if(isCollapsed){
-    body.classList.remove('collapsed');
-    body.style.display='block';
-    btn.textContent='— Réduire';
-    ficheVisible=true;
-  }else{
-    body.classList.add('collapsed');
-    body.style.display='none';
-    btn.textContent='□ Agrandir';
-    ficheVisible=false;
-  }
-}
-function expandFiche(){
-  document.getElementById('ficheModal').classList.add('open');
-}
-function closeFicheModal(e){
-  if(!e||e.target===document.getElementById('ficheModal')){
-    document.getElementById('ficheModal').classList.remove('open');
-  }
-}
-function copyFiche(){
-  const txt=document.getElementById('ficheBody').textContent;
-  navigator.clipboard.writeText(txt).then(()=>{
-    const b=document.getElementById('ficheMinBtn');
-    const prev=b.textContent;
-    const cb=document.querySelectorAll('.fiche-btn')[2];
-    cb.textContent='✅ Copié !';setTimeout(()=>{cb.textContent='📋 Copier';},2000);
-  });
-}
-function copyFicheModal(){
-  const txt=document.getElementById('ficheModalBody').textContent;
-  navigator.clipboard.writeText(txt).then(()=>{
-    const b=document.querySelector('.fiche-modal-btns .fiche-btn');
-    b.textContent='✅ Copié !';setTimeout(()=>{b.textContent='📋 Copier';},2000);
-  });
-}
-
-
-// ── NOTATION ──
-var currentRating=0, ratingShown=false;
-var ratingMsgs=['','😞 Très insatisfait','😕 Insatisfait','😐 Correct','😊 Satisfait','🌟 Excellent !'];
-
-async function showRating(){
-  if(ratingShown) return;
-  ratingShown=true;
-  await mgrSaveConv();
-  mgrRefresh();
-  document.getElementById('ratingWrap').classList.add('show');
-}
-function setRating(n){
-  currentRating=n;
-  document.querySelectorAll('.star').forEach(function(s,i){s.classList.toggle('active',i<n);});
-  document.getElementById('ratingMsg').textContent=ratingMsgs[n];
-  document.getElementById('ratingSend').classList.add('show');
-}
-async function sendRating(){
-  mgrSaveConv();
-  if(!currentRating) return;
-  // Mettre à jour la note dans la dernière conversation sauvegardée
-  if(currentConvId){
-    fetch(SUPA_URL+'/rest/v1/free_conversations?id=eq.'+currentConvId,{
-      method:'PATCH',
-      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY},
-      body:JSON.stringify({rating:currentRating})
-    }).catch(function(e){console.error(e);});
-  }
-  mgrRefresh();
-  document.getElementById('ratingSend').classList.remove('show');
-  var done=document.getElementById('ratingDone');
-  done.textContent='✅ Merci pour votre avis — '+currentRating+'/5 étoiles enregistré';
-  done.classList.add('show');
-}
-function checkForGoodbye(text){
-  var lower=text.toLowerCase();
-  var words=['bonne journ','bonne soir','bonne nuit','au revoir',
-    'bientot','bientôt','hesitez pas','prenez soin','bonne continuation',
-    'resolu','résolu','belle journ','excellente journ','passez une bonne',
-    'cordialement','a la prochaine','à la prochaine','tout est en ordre',
-    'est regle','est réglé','bonne fin','votre disposition','profitez bien',
-    'autre chose pour','je vous souhaite','passer une agre'];
-  return words.some(function(w){return lower.indexOf(w)>=0;});
-}
-
-
-// ── MANAGER ──
-var mgrConversations = [];
-var mgrFichesCount = 0;
-var SUPA_URL = 'https://sfndfnkqoiifmdekrnzq.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmbmRmbmtxb2lpZm1kZWtybnpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwMDgyMjgsImV4cCI6MjA5NTU4NDIyOH0.dEfXCl-vKnfv8Og5lrcH5KBUMxZczQL5MiAVYvgdk8A';
-
-function mgrLogin(){
-  var u = document.getElementById('mgrUser').value.trim();
-  var p = document.getElementById('mgrPass').value.trim();
-  if(u === 'manager' && p === 'free2026'){
-    document.getElementById('mgrLoginWrap').style.display = 'none';
-    document.getElementById('mgrDash').classList.add('show');
-    mgrRefresh();
-  } else {
-    alert('Identifiants incorrects.');
-  }
-}
-function mgrLogout(){
-  document.getElementById('mgrLoginWrap').style.display = 'flex';
-  document.getElementById('mgrDash').classList.remove('show');
-  document.getElementById('mgrUser').value = '';
-  document.getElementById('mgrPass').value = '';
-}
-var currentConvId = null;
-async function mgrSaveConv(){
-  if(chatHistory.length < 2) return;
-  var now = new Date();
-  var convData = {
-    date: now.toLocaleDateString('fr-FR'),
-    time: now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
-    preview: chatHistory[0].content.substring(0,60),
-    message: chatHistory.slice(),
-    rating: currentRating || null
-  };
-  try{
-    if(currentConvId){
-      // Mettre à jour la conversation existante
-      await fetch(SUPA_URL+'/rest/v1/free_conversations?id=eq.'+currentConvId, {
-        method:'PATCH',
-        headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY},
-        body:JSON.stringify(convData)
-      });
-    } else {
-      // Créer une nouvelle conversation
-      var res = await fetch(SUPA_URL+'/rest/v1/free_conversations', {
-        method:'POST',
-        headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=representation'},
-        body:JSON.stringify(convData)
-      });
-      var data = await res.json();
-      console.log('Supabase insert response:', JSON.stringify(data).substring(0,200));
-      if(data && data[0]) currentConvId = data[0].id;
-    }
-  }catch(e){console.error('Supabase save error:',e);}
-}
-async function mgrRefresh(){
-  try{
-    var res = await fetch(SUPA_URL+'/rest/v1/free_conversations?order=created_at.desc&limit=20',{
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
-    });
-    var loaded = await res.json();
-    console.log('Supabase loaded:', loaded.length, 'conversations');
-    mgrConversations = loaded;
-  }catch(e){console.error('Supabase load error:',e);}
-
-  // Stats
-  document.getElementById('mgrStatConv').textContent = mgrConversations.length;
-  var notes = mgrConversations.filter(function(cv){return cv.rating;}).map(function(cv){return cv.rating;});
-  document.getElementById('mgrStatNote').textContent = notes.length ? (notes.reduce(function(a,b){return a+b;},0)/notes.length).toFixed(1) : '—';
-  document.getElementById('mgrStatFiches').textContent = mgrFichesCount;
-
-  var list = document.getElementById('mgrConvList');
-  if(!mgrConversations.length){
-    list.innerHTML = '<div class="mgr-empty">Aucune conversation encore.<br>Les échanges avec Freebot apparaîtront ici.</div>';
-    return;
-  }
-  list.innerHTML = mgrConversations.map(function(conv, idx){
-    var stars = conv.rating ? '⭐'.repeat(conv.rating)+' '+conv.rating+'/5' : 'Non noté';
-    return '<div class="mgr-conv-item">' +
-      '<div class="mgr-conv-header"><span class="mgr-conv-id">CONV-'+conv.id+'</span><span class="mgr-conv-time">'+conv.date+' '+conv.time+'</span></div>' +
-      '<div class="mgr-conv-preview">'+(conv.preview||'')+'...</div>' +
-      '<div class="mgr-conv-rating">'+stars+'</div>' +
-      '<div id="ficheZone-'+idx+'" class="mgr-fiche-wrap"></div>' +
-      '<button class="mgr-gen-btn" onclick="mgrGenFiche('+idx+',this)">📋 Générer la fiche dossier</button>' +
-    '</div>';
-  }).join('');
-}
-function mgrOpenConv(idx){
-  // Highlight
-}
-async function mgrGenFiche(idx, btn){
-  var conv = mgrConversations[idx];
-  btn.textContent = 'Génération en cours...';
-  btn.disabled = true;
-  var msgs = conv.message || conv.messages || [];
-  var prompt = "Genere une fiche dossier structuree. Sections : MOTIF DE CONTACT, RESUME, ACTIONS, STATUT (Resolu/En cours/Escalade), NOTES. Conversation : " +
-    msgs.map(function(m){return (m.role==='user'?'Client':'Freebot')+' : '+m.content;}).join(' | ');
-  try{
-    var res = await fetch('/api/chat',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-5',
-        max_tokens:600,
-        system:"Tu es un assistant qui cree des fiches dossier pour un operateur telecom. Reponds en francais de façon structuree et concise.",
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    var data = await res.json();
-    var fiche = (data.content && data.content[0]) ? data.content[0].text : 'Erreur.';
-    mgrFichesCount++;
-    localStorage.setItem('freebot_fiches', mgrFichesCount);
-    document.getElementById('mgrStatFiches').textContent = mgrFichesCount;
-    var zone = document.getElementById('ficheZone-'+idx);
-    zone.classList.add('show');
-    var ficheId = 'fiche-body-'+idx;
-    zone.innerHTML = '<div class="mgr-fiche-header"><span class="mgr-fiche-title">📋 FICHE DOSSIER</span>' +
-      '<div class="mgr-fiche-btns">' +
-      '<button class="mgr-btn" onclick="mgrToggleFiche('+idx+',this)">— Réduire</button>' +
-      '<button class="mgr-btn" onclick="mgrCopyFiche('+idx+',this)">📋 Copier</button>' +
-      '</div></div>' +
-      '<div class="mgr-fiche-body" id="' + ficheId + '">' + fiche + '</div>';
-    btn.textContent = '🔄 Régénérer la fiche';
-    btn.disabled = false;
-  }catch(e){
-    btn.textContent = '📋 Générer la fiche dossier';
-    btn.disabled = false;
-    alert('Erreur de connexion.');
-  }
-}
-
-
-function mgrToggleFiche(idx, btn){
-  var body = document.getElementById('fiche-body-'+idx);
-  if(!body) return;
-  if(body.style.display==='none'){
-    body.style.display='block';
-    btn.textContent='— Réduire';
-  }else{
-    body.style.display='none';
-    btn.textContent='□ Agrandir';
-  }
-}
-function mgrCopyFiche(idx, btn){
-  var body = document.getElementById('fiche-body-'+idx);
-  if(!body) return;
-  navigator.clipboard.writeText(body.textContent).then(function(){
-    btn.textContent = '✅ Copié!';
-    setTimeout(function(){btn.textContent='📋 Copier';}, 2000);
-  });
-}
-
-
-function endConversation(){
-  document.getElementById('end-conv-btn').style.display='none';
-  showRating();
-}
-
-
-async function mgrClearAll(){
-  if(!confirm('Supprimer tout l\'historique ?')) return;
-  try{
-    await fetch(SUPA_URL+'/rest/v1/free_conversations?id=neq.0',{
-      method:'DELETE',
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
-    });
-  }catch(e){console.error('Clear error:',e);}
-  mgrConversations=[];mgrFichesCount=0;
-  mgrRefresh();
-}
-
 </script>
 </body>
 </html>
