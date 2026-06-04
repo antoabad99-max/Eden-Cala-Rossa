@@ -636,18 +636,52 @@ footer{
   </div>
 </section>
 
-<!-- GALLERY -->
 <section class="gallery" id="gallery">
   <div class="gallery-header">
     <div class="section-label" id="galLabel">Galerie</div>
     <h2 class="section-title" id="galTitle">La beauté de <em>Cala Rossa</em></h2>
   </div>
-  <div class="gallery-grid">
-    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/42359199-dc22-4930-91a2-c93914dfd934.jpg?w=2080" alt="Vue principale"></div>
-    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/252a7938-0ad9-4a67-8fea-acd9c8f922cb.jpg?w=2080" alt="Appartement"></div>
-    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/7d5f67cf-e8eb-4ac3-a585-51a2e9d4b18e.jpg?w=2080" alt="Terrasse"></div>
-    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/b4fed6fa-7a1f-4561-8d11-453a6a38289f.jpg?w=2080" alt="Piscine"></div>
-    <div class="gallery-item"><img src="https://l.icdbcdn.com/oh/f7976e96-f357-49c2-9e26-aae8c28efa92.jpg?w=2080" alt="Plage"></div>
+
+  <!-- Grille principale -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,220px);gap:6px;padding:0 40px;margin-bottom:6px">
+    <div style="grid-column:span 2;grid-row:span 2;overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/a8e42432-139d-45bf-9f9f-1fe88f24ded8.jpg?w=2080" alt="Piscine" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/23cae069-556d-43f8-9863-de345b81fdae.jpg?w=1040" alt="Terrasse" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/c5668f65-3f11-4803-aff5-29251f49de66.jpg?w=1040" alt="Salon d'été" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/07804e43-fca6-4aa8-8f0d-55e99c843c62.jpg?w=1040" alt="Séjour" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/65de69eb-c9d4-45a9-abd4-5994e81b9544.jpg?w=1040" alt="Séjour" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+  </div>
+
+  <!-- Deuxième rangée de photos -->
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:0 40px;margin-bottom:6px;height:200px">
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/54e933e2-5206-4d9c-bce8-7678c18d4209.jpg?w=1040" alt="Séjour repas" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/6a857290-08ae-488b-be34-6b4c3100b736.jpg?w=1040" alt="Appartement" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/252a7938-0ad9-4a67-8fea-acd9c8f922cb.jpg?w=1040" alt="Résidence" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/7d5f67cf-e8eb-4ac3-a585-51a2e9d4b18e.jpg?w=1040" alt="Vue" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+    <div style="overflow:hidden;border-radius:4px">
+      <img src="https://l.icdbcdn.com/oh/b4fed6fa-7a1f-4561-8d11-453a6a38289f.jpg?w=1040" alt="Piscine" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px">
+    <a href="https://edencalarossa.com/fr/galerie" target="_blank" class="btn-primary">Voir toutes les photos</a>
   </div>
 </section>
 
