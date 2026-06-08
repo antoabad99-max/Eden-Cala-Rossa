@@ -530,6 +530,24 @@ footer{
 #pchat-send:disabled{opacity:0.4;cursor:not-allowed}
 .chat-page-input-hint{text-align:center;font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;max-width:860px;margin:8px auto 0}
 
+
+/* ══ LIVRET D'ACCUEIL ══ */
+.livret-section{padding:80px 40px;background:var(--cream)}
+.livret-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:40px auto 0}
+.livret-card{background:var(--white);border-radius:18px;padding:28px;border:1.5px solid #e8ddd0;transition:all 0.3s}
+.livret-card:hover{border-color:var(--terra);transform:translateY(-3px);box-shadow:0 8px 24px rgba(196,98,45,0.1)}
+.livret-card-icon{font-size:32px;margin-bottom:14px}
+.livret-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:10px}
+.livret-card-content{font-size:13px;color:var(--grey);line-height:1.8}
+.livret-card-content a{color:var(--terra);text-decoration:none;font-weight:500}
+.livret-card-content a:hover{text-decoration:underline}
+.livret-alert{background:linear-gradient(135deg,#fff8f0,#fff3e0);border:1.5px solid var(--coral);border-radius:14px;padding:16px 20px;margin-top:14px;font-size:13px;color:var(--text);line-height:1.7}
+.livret-badge{display:inline-block;background:var(--terra);color:var(--white);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+@media(max-width:768px){
+  .livret-grid{grid-template-columns:1fr;gap:14px}
+  .livret-section{padding:48px 16px}
+}
+
 </style>
 </head>
 <body>
@@ -544,6 +562,7 @@ footer{
     <a href="javascript:void(0)" onclick="showSection('gallery')">Galerie</a>
     <a href="javascript:void(0)" onclick="showSection('localisation')">Localisation</a>
     <a href="javascript:void(0)" onclick="showSection('avis')">Avis</a>
+    <a href="javascript:void(0)" onclick="showSection('livret')">📖 Livret</a>
   </div>
   <div style="display:flex;gap:10px;align-items:center">
     <a href="javascript:void(0)" onclick="showChatPage()" style="color:rgba(255,255,255,0.9);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.5px;transition:color 0.3s" id="navGuide">🌅 Guide Corse</a>
@@ -842,6 +861,169 @@ footer{
   <div style="display:flex;gap:16px;justify-content:center">
     <a href="https://www.facebook.com/eden.immo.889655/" target="_blank" style="background:var(--white);border:1.5px solid #e8ddd0;color:var(--text);padding:10px 20px;border-radius:30px;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.2s" onmouseover="this.style.borderColor='var(--terra)';this.style.color='var(--terra)'" onmouseout="this.style.borderColor='#e8ddd0';this.style.color='var(--text)'">📘 Facebook</a>
     <a href="https://www.instagram.com/edenimmovacances/" target="_blank" style="background:var(--white);border:1.5px solid #e8ddd0;color:var(--text);padding:10px 20px;border-radius:30px;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.2s" onmouseover="this.style.borderColor='var(--terra)';this.style.color='var(--terra)'" onmouseout="this.style.borderColor='#e8ddd0';this.style.color='var(--text)'">📸 Instagram</a>
+  </div>
+</section>
+
+
+<!-- LIVRET D'ACCUEIL -->
+<section class="livret-section" id="livret">
+  <div style="text-align:center;margin-bottom:8px">
+    <div class="section-label">Livret d'accueil</div>
+    <h2 class="section-title">Tout pour un séjour <em>parfait</em></h2>
+    <p class="section-sub" style="margin:16px auto 0">Toutes les informations pratiques pour votre séjour à Fiori di Cala Rossa.</p>
+  </div>
+  <div class="livret-grid">
+
+    <!-- Arrivée -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🏠</div>
+      <div class="livret-card-title">Votre arrivée</div>
+      <div class="livret-card-content">
+        <strong>Adresse :</strong> Résidence Fiori di Calarossa, Route de Calarossa, 20137 Lecci<br><br>
+        <strong>La veille :</strong> Contactez Paule Couronne au <a href="tel:0624338860">06.24.33.88.60</a> pour communiquer votre heure d'arrivée.<br><br>
+        <strong>Codes portail :</strong><br>
+        • Voiture : <strong>2700</strong><br>
+        • Piéton : <strong>3710</strong><br><br>
+        <strong>Appartement n°51</strong> — 1er étage du bâtiment 3, à droite en haut des escaliers.
+      </div>
+    </div>
+
+    <!-- Horaires -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🕐</div>
+      <div class="livret-card-title">Horaires & Stationnement</div>
+      <div class="livret-card-content">
+        <strong>Arrivée :</strong> à partir de 17h<br>
+        <strong>Départ :</strong> avant 10h<br><br>
+        <strong>Parking :</strong> 2 places réservées n°90 et 91 (les 2 dernières places du parking).<br><br>
+        <strong>Contacts :</strong><br>
+        • Paule Couronne (conciergerie) : <a href="tel:0624338860">06.24.33.88.60</a><br>
+        • Fabrice Abadie : <a href="tel:0623396670">06.23.39.66.70</a>
+      </div>
+    </div>
+
+    <!-- WiFi & Équipements -->
+    <div class="livret-card">
+      <div class="livret-card-icon">📶</div>
+      <div class="livret-card-title">WiFi & Équipements</div>
+      <div class="livret-card-content">
+        <strong>Réseau WiFi :</strong> Fiori di Calarossa<br>
+        <strong>Mot de passe :</strong> aucun requis<br><br>
+        <strong>Conseils :</strong><br>
+        • Lave-vaisselle : programme Auto<br>
+        • Climatisation : télécommande dans chaque chambre<br>
+        • Chauffe-eau : bouton Eco+ si éteint<br>
+        • Plaque : interrupteur à droite<br>
+        • Barbecue : préchauffer 15 min
+      </div>
+    </div>
+
+    <!-- Piscine & Services -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🏊</div>
+      <div class="livret-card-title">Piscine & Services</div>
+      <div class="livret-card-content">
+        <strong>Piscine :</strong> ouverte de 9h à 20h — transats et parasols disponibles.<br><br>
+        <strong>Bar/Restaurant :</strong> ouvert tous les jours à partir du 1er juin, midi et soir. Soirées à thème, chants corses, brunchs le dimanche.<br><br>
+        <strong>Laverie :</strong> lave-linge et sèche-linge disponibles.<br><br>
+        <strong>Petit-déjeuner :</strong> au bar de la piscine (haute saison) ou livré à l'appartement sur commande (la veille).
+      </div>
+    </div>
+
+    <!-- Commerces à proximité -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🛒</div>
+      <div class="livret-card-title">Commerces à proximité</div>
+      <div class="livret-card-content">
+        <strong>Boulangeries :</strong><br>
+        • Café/épicerie à 50m (gauche en sortant)<br>
+        • By Guest à 200m (gauche, trottoir d'en face) — traiteur & épicerie fine<br><br>
+        <strong>Produits locaux :</strong> Cantina de Cala Rossa à 400m (droite, après le rond-point)<br><br>
+        <strong>Supermarchés :</strong><br>
+        • Utile Route Calarossa (3 km)<br>
+        • Casino Rond Point Trinité (4,3 km)<br>
+        • Super U Sainte Lucie (10 km)<br>
+        • Géant Casino Porto-Vecchio
+      </div>
+    </div>
+
+    <!-- Urgences -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🚨</div>
+      <div class="livret-card-title">Urgences & Numéros utiles</div>
+      <div class="livret-card-content">
+        <strong>Urgences :</strong> Pompiers 18 · SAMU 15 · Police 17<br><br>
+        <strong>Médical :</strong><br>
+        • Centre médical Ste Lucie PV : <a href="tel:0420406643">04 20 40 66 43</a> (lun-ven 11h-19h)<br>
+        • Clinique de l'Ospédale PV : <a href="tel:0495738000">04 95 73 80 00</a><br><br>
+        <strong>Taxis :</strong> <a href="tel:0495731908">04 95 73 19 08</a><br><br>
+        <strong>Pharmacies :</strong> Giumetti-Bartoli (Zonza) · Pharmacie des 4 chemins (PV)
+      </div>
+    </div>
+
+    <!-- Plages -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🏖️</div>
+      <div class="livret-card-title">Plages à proximité</div>
+      <div class="livret-card-content">
+        <strong>Cala Rossa</strong> (800m) — paillottes Ranch'O Plage, 37°2, soirées DJ<br>
+        <strong>Benedettu</strong> — calme et préservée<br>
+        <strong>Saint-Cyprien</strong> — idéale familles, sports nautiques, paillottes<br>
+        <strong>Pinarello</strong> — grande baie de sable fin<br>
+        <strong>Palombaggia</strong> — plage mythique<br>
+        <strong>Santa Giulia</strong> — eaux turquoise<br>
+        <strong>Rondinara</strong> — en forme de conque<br><br>
+        <em style="font-size:12px">⚠️ En haute saison, arriver tôt le matin ou en fin d'après-midi.</em>
+      </div>
+    </div>
+
+    <!-- Activités -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🎯</div>
+      <div class="livret-card-title">Activités & Excursions</div>
+      <div class="livret-card-content">
+        • <strong>VTT électrique :</strong> <a href="http://www.corsicaebike.com" target="_blank">Corsica E Bike Lecci</a><br>
+        • <strong>Sorties en mer :</strong> <a href="http://www.levasionturquoise.com" target="_blank">L'Évasion Turquoise</a>, <a href="http://www.bordemer-croisieres.fr" target="_blank">Bord de mer croisières</a><br>
+        • <strong>Catamaran :</strong> Casa e Mare — <a href="tel:0662829047">06 62 82 90 47</a><br>
+        • <strong>Promenades en mer :</strong> <a href="https://www.promenadesdugolfe.fr" target="_blank">promenadesdugolfe.fr</a><br>
+        • <strong>Croisières Lavezzi :</strong> <a href="http://www.portovecchio-croisieres.com" target="_blank">portovecchio-croisieres.com</a><br>
+        • <strong>4x4 :</strong> <a href="http://www.kalliste4x4.com" target="_blank">Kalliste 4x4</a><br>
+        • <strong>Hélicoptère :</strong> <a href="http://www.helisudcorse.com" target="_blank">Heli-Sud Corse</a>
+      </div>
+    </div>
+
+    <!-- Randonnées -->
+    <div class="livret-card">
+      <div class="livret-card-icon">🏔️</div>
+      <div class="livret-card-title">Randonnées & Nature</div>
+      <div class="livret-card-content">
+        <strong>Aiguilles de Bavella</strong> — incontournable ! Col à 1218m d'altitude, paysages grandioses, faune sauvage. Depuis Zonza ou Solenzara.<br><br>
+        <strong>Piscines naturelles de Solenzara</strong> — 9km après Bavella. Cascades de Purcaraccia et Polischellu.<br><br>
+        <strong>Sentiers balisés :</strong> <a href="https://www.portovecchio-tourisme.corsica/randonnees-balades/" target="_blank">portovecchio-tourisme.corsica</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Règles départ -->
+  <div style="max-width:1100px;margin:28px auto 0;background:var(--white);border-radius:18px;padding:28px;border:1.5px solid #e8ddd0">
+    <div style="font-size:20px;margin-bottom:10px">📋</div>
+    <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:12px">Votre départ</div>
+    <div style="font-size:13px;color:var(--grey);line-height:1.8;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <strong>Avant de partir :</strong><br>
+        • Laisser l'appartement propre, poubelles vidées<br>
+        • Vaisselle lavée et rangée<br>
+        • Ranger transats, table basse et parasols<br>
+        • Prévenir la conciergerie pour le check-out
+      </div>
+      <div>
+        <strong>Barbecue :</strong> nettoyage obligatoire (50€ de caution sinon)<br>
+        • Grille amovible à laver à l'eau et produit vaisselle<br>
+        • Remettre la housse après refroidissement<br><br>
+        <strong>Draps et serviettes :</strong> pas besoin de les retirer.
+      </div>
+    </div>
   </div>
 </section>
 
