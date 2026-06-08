@@ -37,6 +37,7 @@ nav.scrolled .nav-logo{color:var(--terra)}
 .nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{text-decoration:none;color:rgba(255,255,255,0.9);font-size:13px;font-weight:500;letter-spacing:0.5px;transition:color 0.3s}
 nav.scrolled .nav-links a{color:var(--text)}
+nav.scrolled #navLivret{border-color:var(--terra);color:var(--terra)}
 .nav-links a:hover{color:var(--coral)}
 .nav-btn{background:var(--terra);color:var(--white);border:none;padding:10px 22px;border-radius:30px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.3s;text-decoration:none}
 .nav-btn:hover{background:var(--terra2);transform:translateY(-1px)}
@@ -548,6 +549,72 @@ footer{
   .livret-section{padding:48px 16px}
 }
 
+
+/* ══ LIVRET LOGIN ══ */
+.livret-login-overlay{
+  display:none;position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+}
+.livret-login-overlay.open{display:flex}
+.livret-login-box{
+  background:var(--white);border-radius:24px;padding:48px 40px;
+  width:90%;max-width:380px;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,0.3);
+}
+.livret-login-icon{font-size:48px;margin-bottom:16px}
+.livret-login-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--dark);margin-bottom:8px}
+.livret-login-sub{font-size:14px;color:var(--grey);margin-bottom:28px;line-height:1.6}
+.livret-code-input{
+  width:100%;border:2px solid #e8ddd0;border-radius:12px;
+  padding:14px;font-size:22px;font-family:'Jost',sans-serif;
+  text-align:center;letter-spacing:6px;outline:none;
+  transition:border-color 0.2s;color:var(--dark);
+}
+.livret-code-input:focus{border-color:var(--terra)}
+.livret-code-input.error{border-color:#e53e3e;animation:shake 0.3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.livret-error{font-size:13px;color:#e53e3e;margin-top:8px;min-height:18px}
+.btn-livret-enter{
+  width:100%;background:var(--terra);color:var(--white);border:none;
+  padding:14px;border-radius:12px;font-family:'Jost',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;
+  transition:background 0.2s;
+}
+.btn-livret-enter:hover{background:var(--terra2)}
+.livret-close-btn{
+  position:absolute;top:16px;right:16px;background:transparent;border:none;
+  font-size:20px;cursor:pointer;color:var(--grey);
+}
+.livret-login-box{position:relative}
+
+/* ══ LIVRET PAGE PRIVÉE ══ */
+.livret-private-page{
+  display:none;position:fixed;inset:0;z-index:350;
+  background:var(--cream);overflow-y:auto;
+}
+.livret-private-page.open{display:block}
+.livret-private-header{
+  background:var(--terra);padding:18px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+}
+.livret-private-header h2{
+  font-family:'Playfair Display',serif;font-size:20px;
+  color:var(--white);display:flex;align-items:center;gap:10px;
+}
+.btn-livret-logout{
+  background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);
+  color:var(--white);font-family:'Jost',sans-serif;font-size:13px;
+  padding:8px 18px;border-radius:20px;cursor:pointer;transition:all 0.2s;
+}
+.btn-livret-logout:hover{background:rgba(255,255,255,0.3)}
+.livret-private-content{padding:40px;max-width:1100px;margin:0 auto}
+@media(max-width:768px){
+  .livret-private-content{padding:20px 16px}
+  .livret-login-box{padding:36px 24px}
+}
+
 </style>
 </head>
 <body>
@@ -562,10 +629,10 @@ footer{
     <a href="javascript:void(0)" onclick="showSection('gallery')">Galerie</a>
     <a href="javascript:void(0)" onclick="showSection('localisation')">Localisation</a>
     <a href="javascript:void(0)" onclick="showSection('avis')">Avis</a>
-    <a href="javascript:void(0)" onclick="showSection('livret')">📖 Livret</a>
   </div>
   <div style="display:flex;gap:10px;align-items:center">
     <a href="javascript:void(0)" onclick="showChatPage()" style="color:rgba(255,255,255,0.9);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.5px;transition:color 0.3s" id="navGuide">🌅 Guide Corse</a>
+    <a href="javascript:void(0)" onclick="showLivretLogin()" style="font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;border:1px solid rgba(255,255,255,0.3);padding:6px 14px;border-radius:20px;transition:all 0.3s;font-family:'Jost',sans-serif" id="navLivret" onmouseover="this.style.borderColor='rgba(255,255,255,0.8)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)'">🔑 Espace locataires</a>
     <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
     <a href="https://checkout.lodgify.com/fr/edencalarossa/620071/reservation?currency=EUR" target="_blank" class="nav-btn" id="navBookBtn">Réserver</a>
   </div>
@@ -865,8 +932,28 @@ footer{
 </section>
 
 
-<!-- LIVRET D'ACCUEIL -->
-<section class="livret-section" id="livret">
+
+<!-- LIVRET LOGIN OVERLAY -->
+<div class="livret-login-overlay" id="livretLoginOverlay">
+  <div class="livret-login-box">
+    <button class="livret-close-btn" onclick="hideLivretLogin()">✕</button>
+    <div class="livret-login-icon">🏠</div>
+    <div class="livret-login-title">Espace locataires</div>
+    <div class="livret-login-sub">Réservé aux locataires de l'appartement.<br>Entrez le code communiqué par les propriétaires.</div>
+    <input class="livret-code-input" type="password" id="livretCodeInput" placeholder="••••••" maxlength="6" onkeydown="if(event.key==='Enter')checkLivretCode()">
+    <div class="livret-error" id="livretError"></div>
+    <button class="btn-livret-enter" onclick="checkLivretCode()">Accéder au livret</button>
+  </div>
+</div>
+
+<!-- LIVRET PAGE PRIVÉE -->
+<div class="livret-private-page" id="livretPrivatePage">
+  <div class="livret-private-header">
+    <h2>📖 Livret d'accueil — Eden Cala Rossa</h2>
+    <button class="btn-livret-logout" onclick="livretLogout()">← Retour au site</button>
+  </div>
+  <div class="livret-private-content">
+
   <div style="text-align:center;margin-bottom:8px">
     <div class="section-label">Livret d'accueil</div>
     <h2 class="section-title">Tout pour un séjour <em>parfait</em></h2>
@@ -1025,7 +1112,10 @@ footer{
       </div>
     </div>
   </div>
-</section>
+
+  </div>
+</div>
+
 
 <!-- FOOTER -->
 <footer>
@@ -1332,6 +1422,39 @@ async function pSendMsg(){
     pAddMsg('bot', 'Désolé, une erreur de connexion. / Sorry, connection error.');
   }
   pchatTyping = false; document.getElementById('pchat-send').disabled = false;
+}
+
+
+// ══ LIVRET PRIVÉ ══
+var LIVRET_CODE = 'FIORI26'; // Code à communiquer aux locataires
+
+function showLivretLogin(){
+  document.getElementById('livretLoginOverlay').classList.add('open');
+  setTimeout(function(){document.getElementById('livretCodeInput').focus();}, 100);
+}
+function hideLivretLogin(){
+  document.getElementById('livretLoginOverlay').classList.remove('open');
+  document.getElementById('livretCodeInput').value = '';
+  document.getElementById('livretError').textContent = '';
+  document.getElementById('livretCodeInput').classList.remove('error');
+}
+function checkLivretCode(){
+  var code = document.getElementById('livretCodeInput').value.toUpperCase().trim();
+  if(code === LIVRET_CODE){
+    hideLivretLogin();
+    document.getElementById('livretPrivatePage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } else {
+    var input = document.getElementById('livretCodeInput');
+    input.classList.add('error');
+    document.getElementById('livretError').textContent = 'Code incorrect. Contactez les propriétaires.';
+    setTimeout(function(){input.classList.remove('error');}, 400);
+    input.value = '';
+  }
+}
+function livretLogout(){
+  document.getElementById('livretPrivatePage').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 </script>
